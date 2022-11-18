@@ -1,0 +1,234 @@
+<?php
+include_once('DBDriver'.bar.'sqlcomum.php');
+/** AgataPgsql
+ *  Agata Driver for PostgreSQL
+ */
+class AgataPgsql extends sqlcomum
+{ 
+    /** Function Connect 
+     *  Connects to a Database
+     */
+    //function Connect($host, $database, $user, $pass)
+    function Connect()
+    {
+        if(!function_exists('pg_pconnect')){
+            echo "Seu PHP nao tem suporte a PostgreSQL!! Baixe o PHP-GTK de www.php-gtk.org.br\n";
+            exit;
+        }
+        // inclui variaveis de configuracao
+        $database=retorna_CONFIG("database");
+        $host=retorna_CONFIG("host");
+        $user=retorna_CONFIG("user");
+        $pass=retorna_CONFIG("pass");
+        
+        $protocol = 'tcp';
+        $connstr="";
+        if (strpos($host, ':'))
+        {
+            $pieces = explode(':', $host);
+            $host = $pieces[0];
+            $port = $pieces[1];
+            $connstr .= "port=" . $port;
+        }
+        if (!empty($host))
+        {
+            $connstr .= "host=" . $host;       
+        }       
+        
+        if (!empty($database))
+        {
+            $connstr .= " dbname=" . $database;
+        }
+        if (!empty($user))
+        {
+            $connstr .= " user=" . $user;
+        }
+        if (!empty($pass))
+        {
+            $connstr .= " password=" . $pass;
+        }
+        //echo $connstr;
+        
+        if(!@$conn = pg_pconnect($connstr))
+        //if ($conn == false)
+        {            
+            //$sql1 = file_get_contents ("DBDriver".bar."cria.pgsql");
+            //$this->Query($sql1,true,"Criando tabelas vazias");
+            msg('Nao foi possivel conectar ao servidor PostgreSQL');
+            //$this->RaiseError();            
+            return;
+        }
+        $this->connection = $conn;
+
+        return true;
+    }
+    function teste_criacao(){
+    	@$teste=$this->Query("select count(codigoctree) from ctree",false);
+        if(!$teste){
+        	 $sql1 = file_get_contents ("DBDriver".bar."cria.pgsql");
+        	 $this->Query($sql1);
+        }
+        
+        @$i=$this->FetchRow($teste);
+        if($i[0]==0 or !$i){
+        	$this->importaPadroes();
+			$this->importaExtras();
+        }
+    }
+    /** Function Disconnect
+     *  Disconnects a Database
+     */
+    function Disconnect()
+    {
+        $ret = @pg_close($this->connection);
+        $this->connection = null;
+        return $ret;
+    }
+   
+    // funcao que coloca string segura. Exemplo: R$ -> R\$
+    function EscapeString($string){        
+        return pg_escape_string($string);
+    }
+
+    function EscapeStringFOTO($string){        
+        return pg_escape_bytea($string);
+    }        
+    function UnEscapeStringFOTO($string){        
+        return pg_unescape_bytea($string);
+    }
+
+    /** Function Query
+     *  Run a Query
+     */
+    function Query($query,$msgerro=true,$texto="SQL...",$simples=false)
+    {
+		$dbRes=pg_query($this->connection,$query);
+		if(!$dbRes){
+ 			echo $query;
+			$this->RaiseError($dbRes);
+		}	
+		return $dbRes;        
+    }
+    
+    // funcao que faz a query e
+    // retorna ultimo codigo inserido
+    function QueryLastCod($query,$op1=null,$op2=null,$op3=false)
+    {
+        $resultado=$this->Query($query,$op1,$op2,$op3);
+        $lastid=$this->FetchArray($resultado);
+        return $lastid[0];
+    }
+    
+    
+    /** Function FetchRow
+     *  Fetch a Row and returns as an array.
+     */
+    function FetchRow($result)
+    {
+        $tmp=pg_fetch_row($result);
+        if(!$tmp){
+            return false;
+        }else{
+            return $tmp;
+        }
+        
+    }
+
+    /** Function FetchArray ******************************************
+     *  Fetch a query and returns as an array.
+     */
+    function FetchArray($result)
+    {
+        return pg_fetch_array($result);
+    }  
+    
+    /** Function FreeResult
+     *  Free the Database result
+     */
+    function FreeResult($result)
+    {
+        if (is_resource($result))
+        {
+            return @pg_free_result($result);
+        }
+        return true;
+    }
+
+    /** Function NumCols
+     *  Returns the number of columns of a query
+     */
+    function NumCols($result)
+    {
+        $cols = @pg_numfields($result);
+        if (!$cols) {
+            return $this->RaiseError();
+        }
+        return $cols;
+    }
+
+    /** Function NumRows
+     *  Returns the number of rows of a query
+     */
+    function NumRows($result)
+    {
+        $rows = @pg_numrows($result);
+        if ($rows === null) {
+            return $this->RaiseError();
+        }
+        return $rows;
+    }
+
+    /** Function RaiseError
+     *  Returns an AgataError Object
+     */
+    function RaiseError($result=null)
+    {
+    	$erro=pg_last_error($this->connection);
+    	if(!empty($erro)){
+    		msg(pg_last_error($this->connection));
+    	}
+    	//echo(pg_last_error($this->connection));
+        return;
+    }
+
+    /** Function NumFields************************************
+     *  Retorna no numero de campos
+     */
+    function NumFields($result)
+    {
+        return @pg_numfields($result);
+    }
+
+    /** Function FieldName*********************************************
+     *  Retorna array com nomes dos campos
+     */
+    function FieldName($result,$i)
+    {
+        return @pg_fieldname($result,$i);
+    }
+
+
+    /** Function Properties
+     *  Returns the Query Information
+     */
+     
+    function Properties($result)
+    {
+        $id = $result;
+        if (empty($id))
+        {
+            return $this->RaiseError();
+        }
+
+        $count = @pg_numfields($id);
+
+        for ($i=0; $i<$count; $i++)
+        {
+            $res[$i]['name']  = @pg_fieldname ($id, $i);
+            $res[$i]['type']  = @pg_fieldtype ($id, $i);
+            $res[$i]['len']   = @pg_fieldsize ($id, $i);
+        }
+        return $res;
+    }
+}
+?>

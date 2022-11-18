@@ -1,0 +1,1 @@
+SELECT c.nome, e.endereco, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, e.telefone, e.fax, e.celular FROM clientes AS c INNER JOIN cadastro2enderecos AS e ON (e.cadastro='clientes' AND e.codigo=c.codigo) ORDER BY c.nome

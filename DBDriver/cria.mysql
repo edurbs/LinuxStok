@@ -1,0 +1,773 @@
+create table midiapropaganda (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ descricao varchar(50)
+) TYPE=INNODB;
+
+create table cadcaixa (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ descricao varchar(50)
+) TYPE=INNODB;
+
+create table parentesco (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ descricao varchar(50)
+) TYPE=INNODB;
+
+create table romaneio (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ descricao varchar(100)
+) TYPE=INNODB;
+
+create table estados (  
+  str_estado varchar(30),
+  str_uf char(2) PRIMARY KEY
+) TYPE=INNODB;
+
+create table cep_loc (
+  chave_local INTEGER auto_increment PRIMARY KEY,
+  nome_local varchar(60),
+  cep8_local varchar(10),
+  uf_local char(2),
+  FOREIGN KEY (uf_local) REFERENCES estados (str_uf) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table cep_bai (
+  chave_bai INTEGER auto_increment PRIMARY KEY,
+  extenso_bai varchar(60),
+  local_bai INTEGER,
+  FOREIGN KEY (local_bai) REFERENCES cep_loc (chave_local) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table cep (
+  chave_log INTEGER auto_increment PRIMARY KEY,
+  nome_log varchar(60),
+  chvlocal_log INTEGER,
+  chvbai1_log INTEGER,
+  cep8_log varchar(10),
+  FOREIGN KEY (chvlocal_log) REFERENCES cep_loc (chave_local) ON DELETE RESTRICT,
+  FOREIGN KEY (chvbai1_log) REFERENCES cep_bai (chave_bai) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table nomebanco (
+    codigo INTEGER PRIMARY KEY,
+    sigla varchar(30),
+    nome varchar(100)
+) TYPE=INNODB;
+
+create table nivelacesso (
+    codigo INTEGER auto_increment PRIMARY KEY,
+    descricao varchar(100)
+) TYPE=INNODB;
+
+create table localarma (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ descricao varchar(100)
+) TYPE=INNODB;
+
+create table placon (
+ codigo varchar(20) PRIMARY KEY,
+ descricao varchar(100)
+) TYPE=INNODB;
+
+create table meiopgto (
+    codigo INTEGER auto_increment PRIMARY KEY,
+    descricao varchar(100),
+    codplacon varchar(20), 
+    FOREIGN KEY (codplacon) REFERENCES placon (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+create table grpmerc (
+ codigo    INTEGER auto_increment PRIMARY KEY,
+ descricao     varchar(100)
+) TYPE=INNODB;
+
+
+CREATE TABLE profissao (
+  codigo  INTEGER auto_increment PRIMARY KEY,
+  descricao    varchar(100)
+) TYPE=INNODB;
+
+
+CREATE TABLE bancos (
+  codbanco INTEGER auto_increment PRIMARY KEY,
+  numero INTEGER,
+  titular varchar(40),
+  agencia  varchar(12),
+  conta    varchar(10),
+  gerente  varchar(40),
+  telefone varchar(13),
+  fax      varchar(13),
+  email    varchar(100),
+  clientedesde date,
+  valorcheque numeric(12,2),
+  obs	   text,
+  contadaempresa CHAR(1),
+  FOREIGN KEY (numero) REFERENCES nomebanco (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table empregador (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ inativo char,
+ natureza varchar(8), 
+ nome varchar(100),
+ contato varchar(40),
+ dtnasc date,
+ sexo char(1),
+ dtcadastro date,
+ obs text,
+ ultvenda date,
+ ultcompra date,
+ cnpj_cpf varchar(18),
+ ie_rg varchar(20),
+ orgaorg varchar(30),
+ dtemissaorg date,
+ im varchar(20),
+ ir varchar(20),
+ pis varchar(20),
+ carteira varchar(20),
+ titulo varchar(20),
+ codempregador int, 
+ habcomprar varchar(20),
+ debmaximo numeric(12,2),
+ comissao numeric(12,2),
+ foto blob,
+ referencias text,
+ codmidiapropaganda int,
+ FOREIGN KEY (codmidiapropaganda) REFERENCES midiapropaganda (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table funcionarios (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ inativo char,
+ natureza varchar(8), 
+ nome varchar(100),
+ contato varchar(40),
+ dtnasc date,
+ sexo char(1),
+ dtcadastro date,
+ obs text,
+ ultvenda date,
+ ultcompra date,
+ cnpj_cpf varchar(18),
+ ie_rg varchar(20),
+ orgaorg varchar(30),
+ dtemissaorg date,
+ im varchar(20),
+ ir varchar(20),
+ pis varchar(20),
+ carteira varchar(20),
+ titulo varchar(20),
+ habcomprar varchar(20),
+ debmaximo numeric(12,2),
+ comissao numeric(12,2), 
+ foto blob, 
+ referencias text,
+ codmidiapropaganda int,
+ FOREIGN KEY (codmidiapropaganda) REFERENCES midiapropaganda (codigo) ON DELETE RESTRICT 
+) TYPE=INNODB;
+
+
+create table clientes (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ inativo char,
+ natureza varchar(8), 
+ nome varchar(100),
+ contato varchar(40),
+ dtnasc date,
+ sexo char(1),
+ dtcadastro date,
+ obs text,
+ ultvenda date,
+ ultcompra date,
+ cnpj_cpf varchar(18),
+ ie_rg varchar(20),
+ orgaorg varchar(30),
+ dtemissaorg date,
+ im varchar(20),
+ ir varchar(20),
+ pis varchar(20),
+ carteira varchar(20),
+ titulo varchar(20),
+ habcomprar varchar(20),
+ debmaximo numeric(12,2),
+ comissao numeric(12,2),
+ foto blob, 
+ referencias text,
+ codvendedor int,
+ comissaovendedor numeric(12,2),
+ codmidiapropaganda int,
+ FOREIGN KEY (codmidiapropaganda) REFERENCES midiapropaganda (codigo) ON DELETE RESTRICT,
+ FOREIGN KEY (codvendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+create table fornecedores (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ inativo char,
+ natureza varchar(8), 
+ nome varchar(100),
+ contato varchar(40),
+ dtnasc date,
+ sexo char(1),
+ dtcadastro date,
+ obs text,
+ ultvenda date,
+ ultcompra date,
+ cnpj_cpf varchar(18),
+ ie_rg varchar(20),
+ orgaorg varchar(30),
+ dtemissaorg date,
+ im varchar(20),
+ ir varchar(20),
+ pis varchar(20),
+ carteira varchar(20),
+ titulo varchar(20),
+ habcomprar varchar(20),
+ debmaximo numeric(12,2),
+ comissao numeric(12,2),
+ foto blob, 
+ referencias text,
+ codmidiapropaganda int,
+ FOREIGN KEY (codmidiapropaganda) REFERENCES midiapropaganda (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table fabricantes (
+ codigo INTEGER auto_increment PRIMARY KEY,
+ inativo char,
+ natureza varchar(8), 
+ nome varchar(100),
+ contato varchar(40),
+ dtnasc date,
+ sexo char(1),
+ dtcadastro date,
+ obs text,
+ ultvenda date,
+ ultcompra date,
+ cnpj_cpf varchar(18),
+ ie_rg varchar(20),
+ orgaorg varchar(30),
+ dtemissaorg date,
+ im varchar(20),
+ ir varchar(20),
+ pis varchar(20),
+ carteira varchar(20),
+ titulo varchar(20),
+ habcomprar varchar(20),
+ debmaximo numeric(12,2),
+ comissao numeric(12,2),
+ foto blob, 
+ referencias text,
+ codmidiapropaganda int,
+ FOREIGN KEY (codmidiapropaganda) REFERENCES midiapropaganda (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+CREATE TABLE cadastro2bancos (
+  codinterno INTEGER auto_increment PRIMARY KEY,
+  codbanco int,
+  codigo int,
+  cadastro varchar(20),
+  FOREIGN KEY (codbanco) REFERENCES bancos(codbanco) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+CREATE TABLE cadastro2profissao (
+  codinterno INTEGER auto_increment PRIMARY KEY,
+  descricao varchar(50),
+  codprofissao INTEGER,
+  codempregador INTEGER,
+  codigo int,
+  cadastro varchar(20),
+  renda numeric(12,2),
+  obs text,
+  FOREIGN KEY (codprofissao) REFERENCES profissao (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codempregador) REFERENCES empregador (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+CREATE TABLE cadastro2enderecos (
+  codigo int,
+  codinterno INTEGER auto_increment PRIMARY KEY,
+  cadastro varchar(20),
+  descricao     varchar(40),
+  endereco     varchar(80),
+  numero  varchar(10),
+  complemento  varchar(40),
+  bairro       varchar(40),
+  cidade       varchar(30),
+  estado       char(2)    ,
+  cep          varchar(10),
+  telefone     varchar(20),
+  fax          varchar(20),
+  celular      varchar(20),
+  email        varchar(100),
+  site         varchar(50),
+  romaneio INTEGER,
+  FOREIGN KEY (romaneio) REFERENCES romaneio (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+CREATE TABLE cadastro2contatos (
+  codigo int,
+  codinterno INTEGER auto_increment PRIMARY KEY,
+  cadastro varchar(20),
+  nome varchar(40),
+  departamento varchar(40),
+  telefone varchar(20),
+  email  varchar(100),
+  obs  text
+) TYPE=INNODB;
+
+CREATE TABLE cadastro2familias (
+  codigo int,
+  codinterno INTEGER auto_increment PRIMARY KEY,
+  cadastro varchar(20),
+  codparentesco INTEGER,
+  nome varchar(50),
+  dtnasc date,
+  obs text,
+  FOREIGN KEY (codparentesco) REFERENCES parentesco (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table mercadorias (
+ codmerc INTEGER auto_increment PRIMARY KEY,
+ referencia varchar(40),
+ codigobarras varchar(40),
+ descricao varchar(80),
+ resumo varchar(40),
+ peso numeric(12,4),
+ unidade varchar (3),
+ codgrpmerc int,
+ codlocalarma int,
+ codfor int,
+ codfab int, 
+ estoqueatual numeric(12,3),
+ estoqueminimo numeric(12,3),
+ falsolucro numeric(12,2),
+ precocusto numeric(12,3),
+ customedio numeric(12,2),
+ margemlucro numeric(4,2), 
+ precovenda numeric(12,2),
+ promopreco numeric(12,2),
+ promoinicio date,
+ promofim date,
+ comissionada char(1),
+ comissaomaxima numeric(4,2),
+ descontomaximo numeric(4,2),
+ icms numeric(4,2),
+ impostoextra numeric(4,2),
+ ipi numeric(4,2),
+ cst varchar(10),
+ cti varchar(10),
+ cf varchar(10),
+ st varchar(10),
+ ultimavenda date,
+ ultimacompra date,
+ ultimaaltera date,
+ obs text,
+ mostraobs char,
+ foto blob, 
+ inativa char,
+ precoatacado numeric(12,2), 
+ falsolucroatacado numeric(12,2), 
+ margemlucroatacado numeric(12,2), 
+ quantatacado numeric(12,3),
+ volume numeric(20),
+ FOREIGN KEY (codfab)       REFERENCES fabricantes (codigo)     ON DELETE RESTRICT,
+ FOREIGN KEY (codfor)       REFERENCES fornecedores (codigo)    ON DELETE RESTRICT,
+ FOREIGN KEY (codgrpmerc)   REFERENCES grpmerc (codigo)     ON DELETE RESTRICT,
+ FOREIGN KEY (codlocalarma) REFERENCES localarma (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+CREATE TABLE orcamento (
+  codorcamento   INTEGER auto_increment PRIMARY KEY,
+  data         date,
+  codcli      INTEGER,
+  endereco varchar(40), 
+  totalmerc numeric(12,2),
+  desconto numeric(12,2), 
+  totalnf numeric(12,2), 
+  vendedor INTEGER,
+  finalizado char(1),
+  variacao numeric(12,2),
+  hora varchar(10), 
+  FOREIGN KEY (codcli) REFERENCES clientes (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (vendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table entradas (
+ codentradas INTEGER auto_increment PRIMARY KEY,
+ data date,
+ codfor INTEGER,
+ totalmerc numeric (12,2), 
+ desconto numeric (12,2),  
+ hora varchar(10),  
+ FOREIGN KEY (codfor) REFERENCES fornecedores (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table saidas (
+ codsaidas INTEGER auto_increment PRIMARY KEY,
+ data date,
+ codcli INTEGER,
+ endereco varchar(40),
+ totalmerc numeric (12,2),
+ desconto numeric (12,2),
+ totalnf numeric (12,2), 
+ vendedor INTEGER,
+ hora varchar(10), 
+ obs text,
+ futura char,
+ FOREIGN KEY (codcli) REFERENCES clientes (codigo) ON DELETE RESTRICT,
+ FOREIGN KEY (vendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+create table entsai (
+ codentsai  varchar(20),
+ tipo       char(1),
+ codmerc    INTEGER,
+ precooriginal numeric (12,2),
+ precocomdesconto numeric (12,2),
+ precocusto numeric (12,2),
+ quantidade numeric(12,3),
+ entregue numeric(12,3),
+ FOREIGN KEY (codmerc) REFERENCES mercadorias (codmerc) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table pagar (
+  codigo   INTEGER auto_increment PRIMARY KEY,
+  fiscal     varchar(50),
+  data_c     date,
+  data_v     date,
+  valor      decimal(12,2),
+  saldo      decimal(12,2),
+  descr      text,
+  codorigem int,
+  codplacon varchar(20),
+  obs        text,
+    codsaidas int,
+  codentradas int,
+  FOREIGN KEY (codplacon) REFERENCES placon (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas)  ON DELETE RESTRICT,
+  FOREIGN KEY (codentradas) REFERENCES entradas (codentradas)  ON DELETE RESTRICT,
+  FOREIGN KEY (codorigem) REFERENCES fornecedores (codigo)  ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table receber (
+  codigo INTEGER auto_increment PRIMARY KEY,
+  fiscal     varchar(50),
+  data_c     date,
+  data_v     date,
+  valor      decimal(12,2),
+  saldo      decimal(12,2),
+  descr      text,
+  codorigem  int,
+  codplacon  varchar(20),
+  obs        text,
+  vendedor   int,
+  comissao   decimal(12,10),
+    codsaidas int,
+  codentradas int,
+  FOREIGN KEY (codplacon) REFERENCES placon (codigo)  ON DELETE RESTRICT,
+  FOREIGN KEY (vendedor) REFERENCES funcionarios (codigo)  ON DELETE RESTRICT,
+  FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas)  ON DELETE RESTRICT,
+  FOREIGN KEY (codentradas) REFERENCES entradas (codentradas)  ON DELETE RESTRICT,
+  FOREIGN KEY (codorigem) REFERENCES clientes (codigo)  ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+create table movimentos (
+  codigompr   INTEGER auto_increment PRIMARY KEY,
+  codmovim   int,
+  tipomovim  char(1),
+  codcadcaixa   INTEGER,
+  formamovim char(1),
+  data_c     date   ,
+  valor      decimal(12,2),
+    desconto decimal(12,2),
+  multa      decimal(12,2),
+  juros      decimal(12,2),
+  tipodoc char(1),
+  numdoc     varchar(12)  ,
+  codbancocheque int,
+  datacheque date,
+  historico  text
+) TYPE=INNODB;
+
+create table movbanc (
+  codigo INTEGER auto_increment PRIMARY KEY,
+  codigompr   int,
+  formamovim    char(1),
+  numero     varchar(12),
+  data     date,
+  hora varchar(10),
+  valor      decimal(12,2),
+  saldo decimal(12,2),
+  historico      text,
+  origem int,
+  codplacon varchar(20),   
+  obs        text,  
+  FOREIGN KEY (codplacon) REFERENCES placon (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codigompr) REFERENCES movimentos (codigompr) ON DELETE RESTRICT,
+  FOREIGN KEY (origem) REFERENCES bancos (codbanco) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+CREATE TABLE caixa (
+  codigo INTEGER auto_increment PRIMARY KEY,
+  codigompr   int,
+  formamovim   char(1),
+  numero     varchar(12),
+  data    date,
+  hora varchar(10),
+  valor     decimal(12,2),
+  saldo decimal(12,2),
+  historico  text,
+  origem int,
+  codplacon varchar(20), 
+  obs       text,
+  FOREIGN KEY (codplacon) REFERENCES placon (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codigompr) REFERENCES movimentos (codigompr) ON DELETE RESTRICT,
+  FOREIGN KEY (origem) REFERENCES cadcaixa (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+
+create table veiculos (
+    codigo INTEGER auto_increment PRIMARY KEY,  
+    descricao varchar(100),
+    renavam varchar(20),
+    placa varchar(8),
+    combustivel varchar(20),
+	kilometragem varchar(9),
+    marca varchar(20),
+    modelo varchar(20),
+    anofab varchar(4),
+    anomod varchar(4),
+    tara numeric(20),
+    liquido numeric(20),
+    volume numeric(20),
+    obs text
+) TYPE=INNODB;
+
+create table comissao (
+    codigo INTEGER auto_increment PRIMARY KEY,
+    valor numeric(12,2),
+    codvendedor INTEGER,
+    codreceber INTEGER,
+    codsaidas int,  
+    data date,
+    FOREIGN KEY (codreceber) REFERENCES receber (codigo) ON DELETE RESTRICT,
+    FOREIGN KEY (codvendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+CREATE TABLE cheque (
+  codigo INTEGER auto_increment PRIMARY KEY,
+  situacao varchar(40),
+  codbanco int,
+  agencia varchar(20),
+  conta varchar(20),
+  titular varchar(50), 
+  documento varchar(50),
+  dataemissao date,
+  bompara date,
+  numero varchar(20),
+  valor numeric(12,2),
+  codcliente int,
+  codfornecedor int,
+  codpagar int,
+  codreceber int,
+  obs	   text,
+  codigompr int,
+  FOREIGN KEY (codigompr) REFERENCES movimentos (codigompr) ON DELETE RESTRICT,
+  FOREIGN KEY (codbanco) REFERENCES nomebanco (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codcliente) REFERENCES clientes (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codfornecedor) REFERENCES fornecedores (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codpagar) REFERENCES pagar (codigo) ON DELETE RESTRICT,  
+  FOREIGN KEY (codreceber) REFERENCES receber (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table formapgto (
+    codigoformapgto INTEGER auto_increment PRIMARY KEY,
+    descricao varchar(50),
+    variacao numeric(12,2),
+   taxafixa numeric(12,2),
+    parcelas INTEGER,
+    arredonda char,
+    ativa char,
+	avista char,
+	chkdatavariavel char,
+	chkdatafixa char,
+	datafixa numeric(2),
+	chkdiadasemana char,
+	diadasemana numeric(1),
+	variacaoobrigatoria char
+) TYPE=INNODB;
+
+create table parcelapgto (
+    codigoparcelapgto INTEGER auto_increment PRIMARY KEY,
+    codigoformapgto INTEGER,
+    codigomeiopgto INTEGER,
+    codplacon varchar(20),
+    porcentagem numeric(12,2),
+    prazo INTEGER,
+    tipoprazo varchar(20),
+    tolerancia INTEGER,
+    tipoentrada char,
+    FOREIGN KEY (codigoformapgto) REFERENCES formapgto (codigoformapgto) ON DELETE RESTRICT,
+    FOREIGN KEY (codigomeiopgto) REFERENCES meiopgto (codigo) ON DELETE RESTRICT,
+    FOREIGN KEY (codplacon) REFERENCES placon (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table ctree (
+    codigoctree varchar(10) PRIMARY KEY,
+    descricao varchar(100)
+) TYPE=INNODB;
+
+create table permissao (
+    codigopermissao INTEGER auto_increment PRIMARY KEY,
+    codigonivelacesso INTEGER,
+    codigoctree varchar(10),
+    permitido char,
+    FOREIGN KEY (codigonivelacesso) REFERENCES nivelacesso (codigo) ON DELETE RESTRICT,
+    FOREIGN KEY (codigoctree) REFERENCES ctree (codigoctree) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table nivel2funcionario(
+    codigonivelacesso INTEGER,
+    codigofuncionario INTEGER,
+    senha varchar(50),
+    FOREIGN KEY (codigonivelacesso) REFERENCES nivelacesso (codigo)  ON DELETE RESTRICT,
+    FOREIGN KEY (codigofuncionario) REFERENCES funcionarios (codigo)  ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table opcoes (
+    placoncobranca varchar(20),
+    placondevolucao varchar(20),
+    versao varchar(20),
+	build INTEGER,
+    integraestoquefinanceiro char,
+    largurapagina varchar(20),
+    alturarecibo varchar(20),
+    cabecalhorecibo text,
+    rodaperecibo text,
+    autotrocasenhapdv char,
+    viasrecibo varchar(3),
+    pdvenderecocliente char,
+    observacaorecibo char,
+    tiporecibo varchar(2),
+    reciboimprimircliente char,
+    recibodescricaoresumida char,
+    autotreeview char,
+    FOREIGN KEY (placoncobranca) REFERENCES placon (codigo)  ON DELETE RESTRICT,
+    FOREIGN KEY (placondevolucao) REFERENCES placon (codigo)  ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table controlecaixa (
+    dataaberto date,
+    datafechado date,
+    aberto char,
+    fechado char,
+    valorinicial numeric(12,2),
+    valorfinal numeric(12,2),
+    codcadcaixa int,
+    PRIMARY KEY (dataaberto,codcadcaixa),
+    FOREIGN KEY (codcadcaixa) REFERENCES cadcaixa (codigo)  ON DELETE RESTRICT
+) TYPE=INNODB;
+
+CREATE TABLE clientestmp (
+    codigo INTEGER auto_increment PRIMARY KEY,
+    nome text, 
+    contato text, 
+    ie text, 
+    cgc text, 
+    enderec text, 
+    comple text, 
+    cidade text, 
+    estado text, 
+    cep text, 
+    fone text, 
+    fax text, 
+    email text, 
+    obs text, 
+    celular text, 
+    datanas text, 
+    cadastro text, 
+    ultimaco text
+) TYPE=INNODB;
+
+create table devolucoes (
+ coddevolucoes INTEGER auto_increment PRIMARY KEY,
+ data date,
+ codcli INTEGER,
+ endereco varchar(40),
+ totalmerc numeric (12,2),
+ desconto numeric (12,2),
+ totalnf numeric (12,2), 
+ vendedor INTEGER,
+ hora varchar(10), 
+ obs text,
+ codsaidas INTEGER,
+ FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas) ON DELETE RESTRICT,
+ FOREIGN KEY (codcli) REFERENCES clientes (codigo) ON DELETE RESTRICT,
+ FOREIGN KEY (vendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table movpagamentos (
+  codorigem INTEGER,
+  tipo char(1),
+  nnf varchar(50),
+  codmeiopgto INTEGER,
+  meio varchar(50),
+  valor numeric (12,2),
+  data date,
+  data_c date,
+  codformapgto INTEGER,
+  taxafixa decimal(12,2),
+  FOREIGN KEY (codmeiopgto) REFERENCES meiopgto (codigo) ON DELETE RESTRICT,
+  FOREIGN KEY (codformapgto) REFERENCES formapgto (codigoformapgto) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table entregas (
+    codentregas INTEGER auto_increment PRIMARY KEY,
+	data date, 
+	codcli INTEGER, 
+	endereco varchar(40), 
+	total numeric (12,2), 
+	hora varchar(10),
+	totalmerc numeric (12,2), 
+	desconto numeric (12,2), 
+	totalnf numeric (12,2), 
+	vendedor INTEGER,
+    FOREIGN KEY (vendedor) REFERENCES funcionarios (codigo) ON DELETE RESTRICT,
+    FOREIGN KEY (codcli) REFERENCES clientes (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table entrega_itens (
+	codentregas INTEGER, 
+	codmerc INTEGER, 
+	precooriginal numeric (12,2), 
+	precocomdesconto numeric (12,2), 
+	quantidade numeric(12,3), 
+	codsaidas INTEGER,
+	FOREIGN KEY (codentregas) REFERENCES entregas (codentregas) ON DELETE RESTRICT,
+	FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas) ON DELETE RESTRICT,
+	FOREIGN KEY (codmerc) REFERENCES mercadorias (codmerc) ON DELETE RESTRICT
+) TYPE=INNODB;
+
+create table ocorrencia_tipo (
+	codigo INTEGER auto_increment PRIMARY KEY,
+	descricao varchar(100)
+) TYPE=INNODB;
+
+create table ocorrencia (
+	codigo INTEGER auto_increment PRIMARY KEY,
+	resumo varchar(100),
+	data date,
+	hora varchar(10),
+	cadastro varchar(20), /* clientes, fornecedores, funcionarios, fabricantes */
+	cadastro_codigo INTEGER,
+	conta varchar(20), /* pagar ou receber */
+	conta_codigo INTEGER,
+	funcionario INTEGER,
+	codigo_tipo INTEGER,
+	obs text,
+	FOREIGN KEY (codigo_tipo) REFERENCES ocorrencia_tipo (codigo) ON DELETE RESTRICT
+) TYPE=INNODB;

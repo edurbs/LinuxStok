@@ -1,0 +1,16 @@
+acentos 
+
+no windows
+botar nos glade (ou usar as funcoeszz abaixo)... 
+  encoding="iso-8859-1" 
+e no php.ini
+  php-gtk.codepage = iso8859-1
+funcoeszz para mexer nos glade automaticamente
+   zztrocapalavra '<?xml version="1.0"?>' '<?xml version="1.0" encoding="iso-8859-1"?>' interface/*.glade
+
+no linux
+NAO colocar o encoding="iso-8859-1"  nos glades
+e no LinuxStok.php
+  setlocale(LC_CTYPE, 'pt_BR');
+
+iconv -f utf8 -t iso8859-1 interface/menuestoque.glade -o t.glade

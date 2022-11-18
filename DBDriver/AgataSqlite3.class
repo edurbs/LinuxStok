@@ -1,0 +1,277 @@
+<?php
+include_once('DBDriver'.bar.'sqlcomum.php');
+/** AgataSqlite3
+ *  Agata Driver for Sqlite3 
+ */
+class AgataSqlite3 extends sqlcomum
+{
+
+    /** Function Connect
+     *  Connects to a Database
+     */
+    
+    function Connect()
+    {
+        // inclui variaveis de configuracao
+        
+        $database=retorna_CONFIG("database");
+        
+        if ($database)
+        {
+            if (!file_exists($database)){
+                msg("Criando tabelas vazias");
+                $this->CriaProgressBar("Criando tabelas vazias");                
+                $this->AtualizaProgressBar(null,50);
+                //$conn = sqlite_open($database);
+                $conn = new PDO("sqlite:$database");
+                $this->connection = $conn;
+                $sql1 = file_get_contents ("DBDriver".bar."cria.sqlite");
+                $sql1=split (";", $sql1);
+                //sqlite_query($sql1,$conn);
+                foreach($sql1 as $tmp){
+                	$conn->query($tmp);
+                }
+                //sqlite_close($conn);
+                //$this->CriaNovoBancoDeDados("sqlite");
+                $this->FechaProgressBar();
+                //confirma(array(&$this,'importaPadroes'),"Deseja Importar os Dados Padroes agora? \nSe nao, podera importar depois no menu Sistema/Importar.");
+				//$this->importaPadroes();
+            }
+            
+        }
+        else
+        {
+            echo 'File Error';
+            return;
+        }
+        //$connect_function = $persistent ? 'sqlite_popen' : 'sqlite_open';
+        //if (!($conn = sqlite_open($database)))
+        if (!$conn = new PDO("sqlite:$database"))
+        {
+            return $this->RaiseError($conn);
+        }
+        $this->connection = $conn;
+
+        return true;            
+    }
+
+    /** Function Disconnect
+     *  Disconnects a Database
+     */
+    function Disconnect()
+    {
+        //$ret = $this->connection->closeCursor();
+        $this->connection = null;
+        return;
+    }
+
+    // funcao que coloca string segura. Exemplo: R$ -> R\$
+    function EscapeString($string){        
+        return sqlite_escape_string($string);
+    }
+    
+    function EscapeStringFOTO($string){        
+        return $this->EscapeString($string);
+    }   
+         
+    function UnEscapeStringFOTO($string){        
+        return sqlite_udf_decode_binary($string);
+    }
+    /** Function Query
+     *  Run a Query
+     */    
+    function Query($query,$msgerro=true,$texto="SQL...",$simples=false)
+    {  
+        /*if(!$dbRes=$this->connection->query($query)){
+        	if($tmp=$this->connection->prepare($query)){
+        		$dbRes=$tmp->execute();
+        	}
+        }*/
+        $dbRes=$this->connection->query($query);
+    	if($msgerro and $dbRes==FALSE){
+    		echo $query."\n";
+    		$this->RaiseError($dbRes);
+    	}
+    	
+    	$this->last_query=$query;
+        return $dbRes;
+    }
+    
+    // funcao que faz a query e
+    // retorna ultimo codigo inserido
+    function QueryLastCod($query,$op1=true,$op2="SQL...",$op3=false)
+    {
+        $result= $this->Query($query,$op1,$op2,$op3);
+        //$result = sqlite_query("select last_insert_rowid();", $this->connection);
+        //$result = $this->connection->query($query2[$i]))
+        
+        $id = $this->connection->lastInsertId();
+        
+        if (!$result) {
+            return $this->RaiseError($query);
+        }
+        return $id;
+    }
+    
+    /** Function FetchRow
+     *  Fetch a Row and returns as an array.
+     */
+    function FetchRow($result)
+    {
+        //$ar = sqlite_fetch_array($result, SQLITE_NUM);
+       	///return $result->fetch(PDO::FETCH_ASSOC);
+       	//return $result->fetch(PDO::FETCH_NUM);
+       	//return $result->fetch(PDO::FETCH_BOTH);
+       	//return $result->fetch();
+       	//return $this->FetchArray($result);
+       	$rows=$this->NumRows($result);
+       	if($rows<=1){
+       		for($i=0;$i<$rows+1;$i++){
+       			$tmp=$result->fetch(PDO::FETCH_NUM);
+       			// cambiarra para nao dar table locked
+       			if($i==0) $ultimo_tmp=$tmp;
+       		}
+       		return $ultimo_tmp;
+        }else{
+        	return $result->fetch(PDO::FETCH_NUM);
+        }
+    }
+    
+    /** Function FetchArray ******************************************
+     *  Fetch a query and returns as an array.
+     */
+    function FetchArray($result)
+    {
+        //return @sqlite_fetch_array($result);
+       	$rows=$this->NumRows($result);
+       	if($rows==1){
+       		for($i=0;$i<$rows+1;$i++){
+       			$tmp=$result->fetch(PDO::FETCH_ASSOC);
+       			// cambiarra para nao dar table locked
+       			if($i==0) $ultimo_tmp=$tmp;
+       		}
+       		return $ultimo_tmp;
+        }else{
+        	return $result->fetch(PDO::FETCH_ASSOC);
+        }
+	
+        //return $result->fetch(PDO::FETCH_BOTH);
+       	//return $result->fetch(PDO::FETCH_ASSOC);
+       	//return $result->fetch(PDO::FETCH_NUM);
+    }  
+
+    /** Function FreeResult
+     *  Free the Database result
+     */
+    function FreeResult(&$result)
+    {
+        if (!is_resource($result)) {
+            return false;
+        }
+        $result = null;
+        return true;
+    }
+
+    /** Function NumCols
+     *  Returns the number of columns of a query
+     */
+    function NumCols($result)
+    {
+        //$cols = sqlite_num_fields($result);
+       	$cols = $result->columnCount();
+       	//$cols=sqlite_num_fields($result);
+        if (!$cols) {
+            return $this->sqliteRaiseError();
+        }
+        return $cols;
+    }
+
+    /** Function NumRows
+     *  Returns the number of rows of a query
+     */
+    function NumRows($result)
+    {
+        //$rows = sqlite_num_rows($result);
+       	//$rows = $result->rowCount();
+       	//$rows = count($result->fetchAll());
+       	$select=strtoupper(substr(trim($this->last_query),0,6));
+       	$sql=substr(trim($this->last_query),6,strlen($this->last_query));
+       	if($select=="SELECT"){
+       		$sql="SELECT COUNT(*), ".$sql;
+       		if($resultRows=$this->query($sql)){
+       			$linhas=$resultRows->fetch(PDO::FETCH_BOTH);
+       			$rows=$linhas[0];
+       		}
+       	}else{
+       		$rows = $result->rowCount();
+       	}
+        /*if (!is_integer($rows)) {
+            return $this->raiseError($result);
+        }*/
+        return $rows;
+        
+    }
+
+    /** Function RaiseError
+     *  Returns an AgataError Object
+     */
+    function RaiseError($query=null)
+    {
+        //msg($query->errorInfo());
+        //if(!empty($query)){
+        	//msg($query->errorCode());
+        	$erro=$this->connection->errorInfo();
+        	msg($erro[2]);
+    	//}else{
+    	//	msg('Erro '.$this->last_query);
+    	//}
+        return;
+    }
+
+    /** Function NumFields************************************
+     *  Retorna no numero de campos
+     */
+    function NumFields($result)
+    {
+        //return @sqlite_num_fields($result);
+        return $this->NumCols($result);
+        
+    }
+
+    /** Function FieldName*********************************************
+     *  Retorna array com nomes dos campos
+     */
+    function FieldName($result,$i)
+    {
+        //return @sqlite_field_name($result,$i);
+        $meta = $result->getColumnMeta($i);
+		return $meta['name'];
+    }
+    
+    function Properties($result)
+    {
+        $id = $result;
+        if (empty($id))
+        {
+            return $this->RaiseError();
+        }
+
+        $count = $this->NumCols($id);
+
+        for ($i=0; $i<$count; $i++)
+        {
+            $tmp= $id->getColumnMeta($i);
+            if(empty($tmp['driver:decl_type'])){
+            	$tmp['driver:decl_type']=$tmp['native_type'];
+            }
+            $res[$i]['name']  = $tmp['name'];
+            $res[$i]['type']  = $tmp['driver:decl_type'];
+            $res[$i]['len']  = $tmp['len'];
+        }
+        return $res;
+    }
+
+
+
+}
+?>

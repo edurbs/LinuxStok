@@ -1,0 +1,239 @@
+<?php
+include_once('DBDriver'.bar.'sqlcomum.php');
+/** AgataMysql
+ *  Agata Driver for Mysql
+ */
+class AgataMysql extends sqlcomum
+{
+    /** Function Connect
+     *  Connects to a Database
+     */
+    //function Connect($host, $database, $user, $pass)
+    function Connect()
+    {
+        if(!function_exists(mysql_connect)){
+            echo "Seu PHP nao tem suporte a MySQL!!\n";
+            exit;
+        }        
+        // inclui variaveis de configuracao
+        $database=retorna_CONFIG("database");
+        $host=retorna_CONFIG("host");
+        $user=retorna_CONFIG("user");
+        $pass=retorna_CONFIG("pass");
+        
+        if ($host && $user && $pass)
+        {
+            @$conn = mysql_connect($host, $user, $pass);
+        }
+        elseif ($host && $user)
+        {
+            @$conn = mysql_connect($host, $user);
+        }
+        elseif ($host)
+        {
+            @$conn = mysql_connect($host);
+        }
+        else
+        {
+            $conn = false;
+        }
+        
+        if (!$conn)
+        {
+            //msg(mysql_error());
+            $this->RaiseError();
+            return;
+	    
+        }
+        
+        $this->connection = $conn;
+        if ($database)
+        {
+            if (!mysql_select_db($database, $this->connection))
+            {
+                //if(!mysql_create_db($database, $this->connection)){
+                if(!(mysql_query("CREATE DATABASE $database"))){
+                    return $this->RaiseError();
+                }else{
+                    mysql_select_db($database, $this->connection);
+
+                    $this->CriaNovoBancoDeDados("mysql");
+                    //$this->importaPadroes();
+					$this->importaExtras();				
+            
+                }
+            }
+        }
+        return true;
+    }
+
+    /** Function Disconnect
+     *  Disconnects a Database
+     */
+    function Disconnect()
+    {
+        //$ret = mysql_close($this->connection);
+        $this->connection = null;
+        return $ret;
+    }
+    
+    // funcao que coloca string segura. Exemplo: R$ -> R\$
+    function EscapeString($string){        
+        return mysql_escape_string($string);
+    }
+
+    function EscapeStringFOTO($string){        
+        return $this->EscapeString($string);
+    }        
+
+    function UnEscapeStringFOTO($string){        
+        return $string;
+    }
+    /** Function Query
+     *  Run a Query
+     */
+    function Query($query,$msgerro=true,$texto="SQL...",$simples=false)
+    {
+       
+        if(!$dbRes=mysql_query($query,$this->connection)){
+            $this->RaiseError();
+            return ;
+        }
+
+        return ($dbRes);
+
+    }
+    
+    // funcao que faz a query e
+    // retorna ultimo codigo inserido
+    function QueryLastCod($query,$op1=null,$op2=null,$op3=false)
+    {
+        $this->Query($query,$op1,$op2,$op3);
+        $lastid=mysql_insert_id($this->connection);
+        //$result = mysql_query("select LAST_INSERT_ID();", $this->connection);
+        //if (!$lastid) {
+        //    return $this->RaiseError();
+        //}
+        return $lastid;
+    }
+    
+    /** Function FetchRow
+     *  Fetch a Row and returns as an array.
+     */
+    function FetchRow($result)
+    {
+        $ar = mysql_fetch_row($result);
+        return $ar;
+    }
+
+    /** Function FetchArray ******************************************
+     *  Fetch a query and returns as an array.
+     */
+    function FetchArray($result)
+    {
+        return @mysql_fetch_array($result);
+    }
+
+    /** Function FreeResult
+     *  Free the Database result
+     */
+    function FreeResult()
+    {
+        if (is_resource($result)) {
+            return mysql_free_result($result);
+        }
+        return true;
+    }
+
+    /** Function NumCols
+     *  Returns the number of columns of a query
+     */
+    function NumCols($result)
+    {
+        $cols = mysql_num_fields($result);
+        if (!$cols) {
+            return $this->RaiseError();
+        }
+        return $cols;
+    }
+
+    /** Function NumRows
+     *  Returns the number of rows of a query
+     */
+    function NumRows($result)
+    {
+        $rows = mysql_num_rows($result);
+        if ($rows === null) {
+            return $this->RaiseError();
+        }
+        return $rows;
+    }
+
+    /** Function RaiseError
+     *  Returns an AgataError Object
+     */
+    function RaiseError()
+    {
+        
+        if($this->connection){
+            $erro=mysql_error($this->connection);
+            $erro.="\n Client: ".mysql_get_client_info();
+            $erro.="\n Host: ".mysql_get_host_info();
+            $erro.="\n Server: ".mysql_get_server_info();
+            $erro.="\n Proto: ".mysql_get_proto_info();
+
+            //if(!empty($erro)){
+            	msg(mysql_error($this->connection));
+            //}
+        }else{
+            $erro=mysql_error();
+            $erro.="\n Client: ".mysql_get_client_info();
+            $erro.="\n Host: ".mysql_get_host_info();
+            $erro.="\n Server: ".mysql_get_server_info();
+            $erro.="\n Proto: ".mysql_get_proto_info();
+            //if(!empty($erro)){
+            	msg($erro."\nNao foi possivel conectar ao MySQL.");
+            //}
+        }
+        return;
+    }
+    
+    /** Function NumFields
+     *  Retorna no numero de campos
+     */
+    function NumFields($result)
+    {
+        return @mysql_num_fields($result);
+    }
+    
+    /** Function FieldName
+    *  Retorna array com nomes dos campos
+    */
+    function FieldName($result,$i)
+    {
+        return @mysql_field_name($result,$i);
+    }
+
+    /** Function Properties
+     *  Returns the Query Information
+     */
+    function Properties($result)
+    {
+        $id = $result;
+        if (empty($id))
+        {
+            return $this->RaiseError();
+        }
+
+        $count = mysql_num_fields($id);
+
+        for ($i=0; $i<$count; $i++)
+        {
+            $res[$i]['name']  = @mysql_field_name  ($id, $i);
+            $res[$i]['type']  = @mysql_field_type  ($id, $i);
+            $res[$i]['len']   = @mysql_field_len   ($id, $i);
+        }
+        return $res;
+    }
+}
+?>

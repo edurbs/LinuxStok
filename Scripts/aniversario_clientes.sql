@@ -1,0 +1,1 @@
+SELECT nome FROM clientes WHERE natureza='Fisica' AND dtnasc LIKE '%-06-01' ORDER BY nome

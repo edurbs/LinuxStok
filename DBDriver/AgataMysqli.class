@@ -1,0 +1,183 @@
+<?php
+include_once('DBDriver'.bar.'sqlcomum.php');
+
+class AgataMysqli extends sqlcomum {
+    function Connect() {
+        if(!function_exists(mysqli_connect_errno)) {
+            echo "Seu PHP nao tem suporte a MySQLi!!\n";
+            exit;
+        }
+        // inclui variaveis de configuracao
+        $database=retorna_CONFIG("database");
+        $host=retorna_CONFIG("host");
+        $user=retorna_CONFIG("user");
+        $pass=retorna_CONFIG("pass");
+
+        $conn = new mysqli($host, $user, $pass, $database);
+
+        if (mysqli_connect_errno() or !$conn) {
+            $this->RaiseError();
+            return;
+        }
+
+        $this->connection = $conn;
+        if ($database) {
+                if(!($this->connection->query("select * from opcoes"))) {
+                    $sql1 = file_get_contents ("DBDriver".bar."cria.mysql");
+                    $this->Query($sql1,true,"Criando tabelas vazias",true);
+                    //$this->Disconnect();
+                    //confirma(array(&$this,'importaPadroes'),"Deseja Importar os Dados Padroes agora? \nSe nao, podera importar depois no menu Sistema/Importar.");
+                    //$this->importaPadroes();
+                    //$this->importaExtras();
+                }
+        }
+     
+        return true;
+    }
+
+
+    function Disconnect() {
+        $this->connection->close();
+        $this->connection = null;
+        return null;
+    }
+
+    // funcao que coloca string segura. Exemplo: R$ -> R\$
+    function EscapeString($string) {
+        if(!$this->connection){
+            $this->connect();
+        }
+        return mysqli_real_escape_string($this->connection,$string);
+    }
+
+    function EscapeStringFOTO($string) {
+        return $this->EscapeString($string);
+    }
+
+    function UnEscapeStringFOTO($string) {
+        return $string;
+    }
+
+    function Query($query,$msgerro=true,$texto="SQL...",$simples=false) {
+        //echo $query."\n";
+        if($simples){
+            if(!$dbRes=$this->connection->multi_query($query)) {
+                $this->RaiseError();
+                return ;
+            }    
+        }else{
+            if(!$dbRes=$this->connection->query($query)) {
+                $this->RaiseError();
+                return ;
+            }    
+        }
+        return ($dbRes);
+
+    }
+
+    // funcao que faz a query e
+    // retorna ultimo codigo inserido
+    function QueryLastCod($query,$op1=null,$op2=null,$op3=false) {
+        $this->Query($query,$op1,$op2,$op3);
+        $lastid=$this->connection->insert_id;
+        return $lastid;
+    }
+
+    /** Function FetchRow
+     *  Fetch a Row and returns as an array.
+     */
+    function FetchRow($result) {
+        $ar = mysqli_fetch_row($result);
+        return $ar;
+    }
+
+    /** Function FetchArray ******************************************
+     *  Fetch a query and returns as an array.
+     */
+    function FetchArray($result) {
+        return @mysqli_fetch_array($result);
+    }
+
+    /** Function FreeResult
+     *  Free the Database result
+     */
+    function FreeResult() {
+        if (is_resource($result)) {
+            return mysqli_free_result($result);
+        }
+        return true;
+    }
+
+    /** Function NumCols
+     *  Returns the number of columns of a query
+     */
+    function NumCols($result) {
+        $cols = mysqli_num_fields($result);
+        if (!$cols) {
+            return $this->RaiseError();
+        }
+        return $cols;
+    }
+
+    /** Function NumRows
+     *  Returns the number of rows of a query
+     */
+    function NumRows($result) {
+        $rows = mysqli_num_rows($result);
+        if ($rows === null) {
+            return $this->RaiseError();
+        }
+        return $rows;
+    }
+
+    /** Function RaiseError
+     *  Returns an AgataError Object
+     */
+    function RaiseError() {
+
+
+        if($this->connection) {
+            $erro=mysqli_error($this->connection);
+            msg($erro);
+        }else {
+            $erro=mysqli_connect_error();
+            msg($erro."\nNao foi possivel conectar ao MySQLi.");
+
+        }
+        return;
+    }
+
+    /** Function NumFields
+     *  Retorna no numero de campos
+     */
+    function NumFields($result) {
+        return @mysqli_num_fields($result);
+    }
+
+    /** Function FieldName
+     *  Retorna array com nomes dos campos
+     */
+    function FieldName($result,$i) {
+        $finfo = $result->fetch_field();
+        return $finfo->name;
+    }
+
+    /** Function Properties
+     *  Returns the Query Information
+     */
+    function Properties($result) {
+        if (empty($result)) {
+            return $this->RaiseError();
+        }
+        $i=1;
+        while ($finfo = mysqli_fetch_field($result)) {
+            $res[$i]['name']  = $finfo->name;
+            $res[$i]['type']  = $finfo->type;
+            $res[$i]['len']   = $finfo->max_length;
+            $i++;
+        }
+
+        return $res;
+    }
+}
+?>

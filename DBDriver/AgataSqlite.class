@@ -1,0 +1,224 @@
+<?php
+include_once('DBDriver'.bar.'sqlcomum.php');
+/** AgataSqlite
+ *  Agata Driver for Sqlite
+ */
+class AgataSqlite extends sqlcomum
+{
+
+    /** Function Connect
+     *  Connects to a Database
+     */
+    
+    function Connect()
+    {
+        // inclui variaveis de configuracao
+        
+        $database=retorna_CONFIG("database");
+        
+        if ($database)
+        {
+            if (!file_exists($database)){
+            	$this->cria_tabelas();    
+            }            
+        }
+        else
+        {
+            msg('File Error');
+            return;
+        }
+        $connect_function = $persistent ? 'sqlite_popen' : 'sqlite_open';
+        //if (!($conn = sqlite_open($database)))
+        if (!($conn = $connect_function($database)))
+        {
+            return $this->RaiseError();
+        }
+        $this->connection = $conn;
+        return true;            
+    }
+    function teste_criacao(){
+    	@$teste=sqlite_query("select count(codigoctree) from ctree",$this->connection);
+        if(!$teste){
+        	$this->cria_tabelas();
+        }
+        $i=$this->FetchRow($teste);
+        if($i[0]==0 or !$i){
+        	$this->importa_dados();
+        }
+	}
+	function cria_tabelas(){
+		$this->CriaProgressBar("Criando tabelas vazias");
+        $this->AtualizaProgressBar(null,50);
+        $conn = sqlite_open(retorna_CONFIG("database"));               
+        $sql1 = file_get_contents ("DBDriver".bar."cria.sqlite");
+        sqlite_query($sql1,$conn);
+        sqlite_close($conn);
+        $this->FechaProgressBar();
+        //$this->importa_dados();
+	}
+	function importa_dados(){
+		$this->importaPadroes();
+		//$this->importaExtras();
+	}
+    /** Function Disconnect
+     *  Disconnects a Database
+     */
+    function Disconnect()
+    {
+        $ret = @sqlite_close($this->connection);
+        $this->connection = null;
+        return $ret;
+    }
+
+    // funcao que coloca string segura. Exemplo: R$ -> R\$
+    function EscapeString($string){        
+        return sqlite_escape_string($string);
+    }
+    
+    function EscapeStringFOTO($string){        
+        return $this->EscapeString($string);
+        //return sqlite_udf_encode_binary($string);
+        //return null;
+    }   
+         
+    function UnEscapeStringFOTO($string){        
+        return $string;
+        //return sqlite_udf_decode_binary($string);
+        //return null;
+    }
+    /** Function Query
+     *  Run a Query
+     */    
+    function Query($query,$msgerro=true,$texto="SQL...",$simples=false)
+    {
+        $dbRes=sqlite_query($query,$this->connection);
+		//if(!$dbRes and $dbRes<>0) $this->RaiseError();
+		//if($dbRes===0) $dbRes=TRUE;
+        return ($dbRes);
+    }
+    
+    // funcao que faz a query e
+    // retorna ultimo codigo inserido
+    function QueryLastCod($query,$op1=true,$op2="SQL...",$op3=false)
+    {
+        $this->Query($query,$op1,$op2,$op3);
+        $result = sqlite_query("select last_insert_rowid();", $this->connection);
+        if (!$result) {
+            return $this->RaiseError($query);
+        }
+        $result2=$this->FetchArray($result);
+        return $result2[0];
+    }
+    
+    /** Function FetchRow
+     *  Fetch a Row and returns as an array.
+     */
+    function FetchRow($result)
+    {
+        $ar = sqlite_fetch_array($result, SQLITE_NUM);
+        return $ar;
+    }
+    
+    /** Function FetchArray ******************************************
+     *  Fetch a query and returns as an array.
+     */
+    function FetchArray($result)
+    {
+        return @sqlite_fetch_array($result);
+    }  
+
+    /** Function FreeResult
+     *  Free the Database result
+     */
+    function FreeResult(&$result)
+    {
+        if (!is_resource($result)) {
+            return false;
+        }
+        $result = null;
+        return true;
+    }
+
+    /** Function NumCols
+     *  Returns the number of columns of a query
+     */
+    function NumCols($result)
+    {
+        $cols = sqlite_num_fields($result);
+        if (!$cols) {
+            return $this->sqliteRaiseError();
+        }
+        return $cols;
+    }
+
+    /** Function NumRows
+     *  Returns the number of rows of a query
+     */
+    function NumRows($result)
+    {
+        $rows = sqlite_num_rows($result);
+        if (!is_integer($rows)) {
+            return $this->raiseError();
+        }
+        return $rows;
+    }
+
+    /** Function RaiseError
+     *  Returns an AgataError Object
+     */
+    function RaiseError($query=null)
+    {
+        $error=sqlite_last_error($this->connection);
+        if($error==18){
+            msg('Muita informacao para uma unica linha da tabela. Talvez sua imagem/foto seja muito grande. Neste caso voce deveria usar MySQL.');            
+        }//elseif($error=19){
+        //    msg("Erro de integridade no banco de dados. \n ".$query);
+        //}
+        else{
+            $er=sqlite_error_string($error);
+            if(!empty($er)){
+            	msg(sqlite_error_string($error).". Erro ".$error);
+            }
+        }
+        
+        return;
+    }
+
+    /** Function NumFields************************************
+     *  Retorna no numero de campos
+     */
+    function NumFields($result)
+    {
+        return @sqlite_num_fields($result);
+    }
+
+    /** Function FieldName*********************************************
+     *  Retorna array com nomes dos campos
+     */
+    function FieldName($result,$i)
+    {
+        return @sqlite_field_name($result,$i);
+    }
+
+
+    /** Function Properties
+     *  Returns the Query Information
+     */
+    function Properties($result)
+    {
+        $id = $result;
+        if (empty($id))
+        {
+            return $this->RaiseError();
+        }
+
+        $count = sqlite_num_fields($id);
+
+        for ($i=0; $i<$count; $i++)
+        {
+            $res[$i]['name']  = sqlite_field_name ($id, $i);
+        }
+        return $res;
+    }
+}
+?>
