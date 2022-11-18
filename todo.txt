@@ -1,0 +1,553 @@
+FAZENDO.....
+retirar multi de movcontas
+
+PACK
+drop table no .config e no linuxstok.sqlite3
+
+A FAZER
+desconto geral no PDV distribuir individualmente
+bakcup  
+	botar nomes da sequencia na unha
+	select relname from pg_stat_user_tables order by relname
+	mysql_list_tables($dbname) 
+    SELECT name FROM sqlite_master WHERE type='table';
+	 
+===
+pagar valor a maior que a conta 180, cliente dá 200, deve ficar 20 negativo botar saldo negativo
+cadastro mercadoria, ativar mostrar observacao na hora da venda (mostrar ou imprimir ou perguntar nova observacao???)
+relatorio cheques
+fun/vend do cliente
+transferencia entre caixas/banco
+rel de compras
+ocorrencias - rel geralzao de ocorrencia para clientes
+devolucao (nao mexer no conta ja paga) deve gerar credito
+cancelamento de compra **********
+rel. contas recebidas, filtro para tirar saldo e cod.placon, desc.placon
+rel. contas recebimento de vendas no caixa, botar a data de vencimento
+rel contas abertas e cheques todos ou filtrar por situacao
+descricao + valor + dia confirmar????
+rel vendas/periodo perguntar vendedor
+maximo de linhas em 3 folhas
+--
+permissao de cheques
+pedir senha para desconto acima do limite sem trocar usuario
+peso da forma de pagamento e cadastra cliente para liberar até certo peso
+botao de cadastrar o cheque do controle de xeque no contas a pagar/receber
+se valor venda for zero, escreve brinde no recibo
+escolher em config geral qual padrao, cliente leva na hora, entrega programada, check
+uniao da movpagamentos com receber???
+NEW relatorio devolucoes
+devolucao com lista de produtos de varias vendas, com a data venda	
+NEW registro de alteracao - descricao de mercadoria - LOG
+lembrar ultimo preco unitario da mercadoria para o cliente?
+--
+vender só com requisição para o cliente
+desconto no mov. financeiro com limite cadastrado no caixa
+filtro por grupo de mercadorias na lista de mercadorias
+rel. vendas por produto pego o cimento e vejo as vendas dele pelo preco de custo quantidade e total das vendas por periodo; custo menos o preco de venda tendo o saldo 
+botar cod venda na tela quando abrir orcamento
+NEW romaneio / 
+mov financeiro: pegar cheque ja cadastrado no control. xeke
+compras: botar obs no final em cada conta
+controle de cobrança, cad. cobradores, juros em contas
+Backup SELECT relname FROM pg_stat_user_tables ORDER BY relname / mysql_list_tables /SELECT name FROM sqlite_master;
+cancela orcamento
+planilha de compras?
+pedido de compras - orcamento
+cancelar devolucao 
+NEW controle mercadoria consignada - como??
+NEW porcentagem de comissao sobre o cliente no campo vendedor 
+---
+tooltip no botao verde/vermelho
+acelerar S ou N na funcao confirma
+relatorio sebrae
+romaneio de entrega: manual, endereco area de romaneio, lista de carga, capacidade do veiculo, resultado entrega, etc..
+registrar vendas para cliente com titulos no contas a receber em atraso
+comissao ?
+NEW compras individual: UN, preco inicial, ipi (preco ou %), subst trib(preco ou %), frete (preco ou %), outras desp (preco ou %), imposto extra%??
+	todas porcentagens pegam do preco inicial, somadas dao o preco de custo
+	a cada compra gravar no cad. de mercadorias
+	custo+margem=pvenda1, pvenda1+imposto extra (3.5%)= pvenda final 
+	compras - icms e ipi e simples7% : individual; 
+	final: frete: icms, ipi, seguro, outras despesas somando no total; 
+	e o darf/simples7% que altera o custo mas nao o total.
+	imposto extra calcula no cad. mercadoria
+
+FEITO
+	build 37
+NEW atualizacao de lista automatica desliga/liga em opcoes (padrao ligado)	
+BUG cidades com acentos nos enderecos travava
+	build 36
+BUG escapastring em busca enderecos->estado 
+NEW limpa endereco ao mudar cliente no PDV
+BUG 2° esc no PDV trava windows
+BUG focus e cursor
+NEW telas em notebooks
+BUG suprimento, sangria, fechar cinza 2° vez
+NEW cheque no movcontas... 
+	build 35
+BUG depois de atualziar lista nao busca mais
+BUG codigo da mercadorias apos incluir
+BUG preco custo em compras zero
+BUG orcamento valor 585,56->5865600 orcamento nas parcelas
+BUG rel venda detalhadas por item funcionario errado
+	build 34
+NEW sangria/suprimero em caixa/banco?
+NEW rel. mov. bancario
+NEW ocorrencia
+	build 33 
+NEW botar porcentagem de comissao sobre venda do vendedor externo.
+BUG importar dados padroes e extras automaticamente e sumir com as entradas no menugeral
+BUG tirar acentos de localidades
+BUG permissoes excluir bloqueado via del
+BUG porcentagem em parcelapgto
+NEW sqlite3 
+BUG del nao apaga em lista
+BUG 1468643 porcentagem de comisao sobre vendedor do cliente
+BUG tirar obrigatoriedade endereco romaneio
+NEW juros/desconto/multa com porcentagem no entry
+BUG mov contas: cancela pgto sem selecionar nada da erro
+BUG segundo clique em vendas trava
+	build 31 e 32
+registra ultima compra/venda em compras/vendas
+rel. clientes inativos - nao compram a certo periodo
+desativar fornecedor/cliente/etc.. no cadastro (tipo mercadoria) 
+cor em contas a receber
+venda detalhadas por item - por vendedor
+bloquear cancelar se ja entregou
+botar entrega no pdv
+obs ao fechar abrir caixa
+relatorio de mov. do caixa - upgradeado (eita!)
+relatorio de descontos (caixa_recebimento)
+botar permissoes em ctree
+desconto no caixa
+botao sangria/suprimento no mov financeiro com obs com sangria
+	build 30
+NEW!!! controle de entregas
+OK	pdv 
+		Programar Entrega -ou- Cliente Leva Agora
+			programar entrega - default
+				OK botar no entsai "entregue"=0
+				OK libera opcao de baixar estoque 
+			cliente leva agora
+				OK botar no entsai "entregue"="quantidade"
+				OK bloqueia opcao de baixar estoque
+				OK grava no saidas futura='0'
+		Baixar Estoque Agora -ou- Baixar ao Entregar
+			Baixar Estoque Agora
+				OK baixa no estoque
+				OK grava no saidas futura='0'
+			Baixar ao Entregar	
+				OK nao baixa no estoque
+				OK grava no saidas futura='1'
+OK	pdv->cancelamento
+		se saidas->futura=1 nao volta mercadorias ao estoque
+OK	devolucao
+		se saidas->futura=1 nao volta mercadorias ao estoque
+OK	entrega
+	OK 	botar endereco para entrega
+	OK	se saidas->futura=1 
+			baixar no estoque
+	OK	se saidas->futura=0
+			nao baixa no estoque
+	OK	permitir desfazer entregas
+	OK	relatorio de entregas pendentes	
+	OK	relatorio de entregas efetuadas
+
+	build 29
+BUG desligar auto-troca funcionano no pdv quando tiver no modulo completo
+BUG atalhos em devolucao
+BUG cancelar - excluir também de movpagamentos
+BUG devolver - excluir também de movpagamentos	
+	build 28
+BUG atualizar mercadorias ??
+NEW relatorio vendas canceladas
+BUG cancelar vendas nao funfa
+NEW confirmar data com segunda 31 de setembro...
+	build 27
+NEW confirmar DATA do dia no inicio do programa
+BUG chama endereco depois de procurar um cliente e dar msg de aviso de debito
+BUG forma de pgto - atualizar no pdv
+NEW botar codvenda no movcompras para facilitar buscar contas
+NEW perguntar entrada valor zero, divide o restante
+BUG data de venda e vencimento em rel. contas geradas por vendas
+BUG nome do usuario no titulo
+BUG tirar troca usuario do sistema
+	build 25
+NEW calculadora ctrl+alt+c :)
+NEW formapgto definir entrada e divide o restante
+	build 24
+NEW rel. alteracao de mercadorias
+NEW relatorio personalizado de contas por placon - agrupados por semana/mes/ano
+BUG erro cartao credito venda
+NEW botaozinho devolucao em vendas
+BUG rel. mov. financeiro por plano de contas
+NEW relatorio/contas/a receber ordem vencimento
+NEW relatorio lucro butro
+NEW relatorio conta geradas pelas vendas
+NEW relatorio caixa recebimento vendas
+NEW relatorio media recebimento contas
+	build 23
+NEW caixa - botar na obs o codvenda depois da conta
+	build 21
+NEW totais na tela de cheques
+BUG opcoes apagava build
+NEW abre ultimo caixa fechado
+NEW sem splash qdo nao tem usuario
+NEW recibo de 48col.
+NEW registra motivo de cancelar venda
+NEW upgrade manual
+NEW rel. contas - previsao de entradas e saidas
+BUG atacado tranvando no PDV
+BUG acesso ao sqlite.db e .config.db com usuario diferente mas com permissao de leitura da erro
+BUG mysql agora com InnoDB
+BUG msg PDV taxa de 0 foi somada
+NEW relatorio total vendas clientes
+NEW relatorio de devolucao pra clientes e a data
+NEW rel. compras geral
+NEW cabecalho com várias linhas
+	build 20
+NEW modulo de gerar relatorio na tela
+NEW relatorio vendas mostra produtos individuais
+NEW se_ja_cadastrado inscrição estadual e inscrição municipal
+NEW taxa fixa p/ forma de pgto
+NEW novo registro opções/config - config.glade2
+NEW total das contas a receber na tela
+NEW cod cliente no recibo
+	build 19
+BUG fechar caixa com lancamentos posteriores
+	build 18
+NEW fullscreen em mov financeiro
+NEW mov. contas -> mov financeiro
+	build 17
+NEW recibo devolucao (valor erra em receber negativo){
+ dev total de pgto total OK
+ dev total de pgto parcial OK 
+ dev parcial de pgto total OK
+ dev parcial de pgto total com multiplos pgtos OK
+ dev parcial de pgto parcial OK
+ dev parcial de pgto parcial de uma conta OK 
+}
+BUG contas mostrar <>0 para mostrar negativa da dev.
+NEW dados do cheque em mov contas (mudar controle de cheque)
+BUG rel contas data>= e nao data>
+BUG rel contas vencidas errado
+NEW script salvar e abrir sql
+NEW rel. mov contas a receber por cliente com média de atraso
+	build 16
+NEW tela de script SQL
+BUG cancela pgto parcial
+	build 15
+NEW cadastro veiculos (botar volume m3 no cad. merc)
+BUG nivel de acesso em senhas dando erro
+NEW rel. vendas por vendedor amarrado ao cliente
+NEW rel. orcamentos abertos/periodo, fechados/periodo, todos/periodo
+BUG orçamento de produto pode ser concretizada, mas ele ainda não registra isso.. bem lembrado
+NEW permitir alterar valor e saldo de conta a pagar/receber
+NEW permissao mov. contas pagar/receber
+NEW cancela compra ( nao funfa direito)
+BUG abrir caixa nao zera o saldo (arrumar sangria tb) - em estorno simples
+BUG devolucao acima de valor pago: 1) a partir da ultima, 2) conta a receber negativas
+NEW precocusto no entsai para depois calcular lucro na venda
+	build 14
+NEW caixa por periodo mais que um dia
+NEW mercadoria inativa cinza
+NEW controle de valores do caixa; estorno do estorno
+NEW sangria e suprimento do caixa
+NEW hora do caixa
+BUG verificao de CPF repetido em cadastrados
+BUG excluir nao da msg OK/false
+BUG rel contas agrupado por cliente
+SQL foreign key cliente receber/ fornecedor pagar	
+BUG progress bar mais rapido
+	build 13
+NEW relatorio contas
+	build 12
+BUG mysql agora funciona
+NEW preco venda nao obrigatorio em merc.
+	build 11
+NEW teste de conexao em configuracoes
+BUG sem estado funcoes 184 erro
+BUG crash sem permissao de vender estoque zero
+BUG atualizao da lista em contas pagar/receber
+BUG sqlite nao afeta mercadorias/financeiro
+BUG cria banco postgresql com erro "by Cyro Corte Real Filho"
+NEW suporte a PNG e GIF em imagens
+NEW logotipo novo por Erick Wilder 
+BUG GDK-key em login no windows nao funfa
+BUG variacaoobrigatoria faltando no cria.sql
+	build 10
+NEW desconto opcional/obrigatorio na forma de pgto (PDV)
+BUG progress bar ao atualizar lista 
+NEW ultima forma de pgto do cliente
+BUG desconto nao funfa no pdv
+BUG jpg = JPG
+BUG pergunta senha PDV sem o ****
+BUG confirma cancela venda 	
+	build 9
+BUG 1377049 botao modificar endereco
+BUG 1377034 meio pelo qual a pessoa localizou a empresa
+BUG pulldown em estado baseado na tabela estados
+BUG 1380650 Sugestao sobre armazenamento de imagens
+BUG 1378448 preco de atacado e lucro real e falso em cima deste, qtminatacado checkbutton se precoatacado>0, pdv ver quantidade e pegar preco atacado.
+SQL comissionada=1 e novos campos de atacado em mercadorias
+BUG codigo de referencia autom. pegando codigo interno.
+BUG 1377041 Busca nos campos observações e referências.
+BUG cidades - entry completion
+BUG opcao libera/bloqueia/so a vista cliente no cad cliente e no PDV
+SQL insert into ctree values ('030115','Vender para cliente bloqueado'); insert into ctree values ('030116','Vender a prazo para cliente bloqueado para somente a vista');
+NEW vendas/compras se merc. ja ta na lista adiciona quantidade..
+NEW cancela venda no PDV
+SQL alter table pagar add FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas)  ON DELETE RESTRICT; alter table pagar add FOREIGN KEY (codentradas) REFERENCES entradas (codentradas)  ON DELETE RESTRICT; alter table receber add FOREIGN KEY (codsaidas) REFERENCES saidas (codsaidas)  ON DELETE RESTRICT; alter table receber add FOREIGN KEY (codentradas) REFERENCES entradas (codentradas)  ON DELETE RESTRICT;
+NEW migrar DEVOLUCAO para php-gtk2 devolucao de merc.
+NEW opcao para ocultar/mostrar colunas nos clists principais
+NEW botao atualiza no buscatab
+BUG mercadorias ultima alteracao ver em compras
+NEW compras - botar margem lucro (real ou falsa) na tela.. opcao para alterar pvenda autom..ou apenas alterar as margens.. .. gravar no db as novas margem e o pvenda
+BUG descontos em compras... acrescimo ou desconto...
+NEW mercadoria ativo-inativo
+NEW nome de versao e build
+BUG fullscreen senha pdv
+NEW formapgto dia 5, 10, 15, etc.. sabado, 30/60/90 todo dia 5...
+NEW key press del na lista de venda
+NEW alt data vendas...com controle de tolerancia
+BUG mudar pvenda de lugar (depois de custo medio)
+SQL alter table formapgto add column chkdatavariavel char; alter table formapgto add column chkdatafixa char; alter table formapgto add column chkdiadasemana char; alter table formapgto add column diadasemana numeric(1); alter table formapgto alter column datafixa type numeric(2); alter table mercadorias add column inativa char; alter table opcoes add column build INTEGER;  update mercadorias set inativa='0';
+	0.5.0cvsGa (build 8)
+NEW del key nos clist cadastro
+NEW migrar COMPRAS para php-gtk2
+NEW clist_cadastro ao clicar na coluna alterar o search_column
+SQL alter table entradas drop column endereco;  alter table entradas drop column totalnf; alter table entradas drop column vendedor; alter table entradas add column hora varchar(10);
+	0.5.0cvsG
+NEW busca venda por codigo ou lista
+NEW upgrade de versoes
+BUG codigo ctree nao encontrado
+NEW relatorios de mercadorias
+BUG endereco recibo vendas
+NEW mascara ponto ou virgula entendido como dois zeros para agilizar a digitacao
+SQL insert into ctree values ('040700','Mercadorias'); insert into ctree values ('040701','Lista de preco simples'); insert into ctree values ('040702','Abaixo do estoque Minimo'); insert into ctree values ('040703','Com preco promocional'); alter table opcoes add column versao varchar(20);
+	0.5.0cvsF
+NEW troca de precos ***
+BUG corrigir lista de enderecos label trocado
+BUG msg decode utf8
+BUG erro excluir sem atualizar clist
+NEW botao proximo anterior... ir pela descricao e nao pelo codigo
+BUG erro excluir contas a receber com caixa fechado
+BUG mascara nao aceita numero negativo
+NEW busca orcamento/venda pergunta cliente e numero
+BUG cedilha do orcamento recibo nao sai ??
+NEW cadastro de funcionario para um cliente
+BUG retirar comissao do funcionario do cad. cliente, retirar deb maximo, habilita comprar do cad. funcionario, retirar comissao do funcionario, deb maximo, habilita comprar do cad. fabricantes, fornecedores, empregadores
+NEW atualizao manual em mercadorias botao verde e vermelho
+BUG etiqueta fabricante errado
+BUG erro ao alterrar fornecedor
+BUG importaap datas do cad. fornecedor
+NEW campo de margem de lucro falso no cadastro de mercadoria
+SQL update clientes set habcomprar='Liberado';
+SQL update cadastro2enderecos set romaneio='1';
+SQL update fornecedores set dtnasc='0001-01-01', dtcadastro='0001-01-01', dtemissaorg='0001-01-01';
+SQL alter table clientes add column codvendedor int references funcionarios (codigo);
+SQL ALTER TABLE mercadorias ALTER COLUMN falsolucro TYPE numeric(12,2);
+SQL alter table mercadorias rename column estoqueruim to falsolucro;
+	0.5.0cvsE
+BUG migrar permissoes para php-gtk2
+NEW codmerc pdv buscar por codmerc, referencia, codigo barras
+BUG buscatab - selecionar primeira linha do treeview
+NEW pdv - telefone na lista de enderecos
+NEW mercadorias - preco de custo mais visivel
+BUG pdv - fechar buscamerc trava no proximo F1
+	0.5.0cvsD
+BUG ordem placon por codigo
+BUG contas pagar nao restringir por banco por fornecedor
+BUG label cliente/cliente  em contas checkbutton
+NEW 2º via reimprimir recibo nem mudar
+NEW botao para buscar mercadoria F1 enter so pra adicionar quatidade
+NEW window buscatab focus-out-event close!
+BUG endereco pdv label errado
+BUG importacao telefone AP (corrigir usando php-gtk2 LinuxStok.php corrigietelefone.php)
+	0.5.0cvsC
+NEW checkbuttons de filtro das contas (atrasadas, quitadas, filtra cliente, vicendo, filtra data)
+BUG verificar se o valor e muito pequeno para parcelar no finvendas (se alguma parcela=0)
+BUG recibo orcamento nao sair o rodape para assinar
+BUG venda > 1000 mostra 1 no recibo
+NEW checkbutton mostrando se caixa esta aberto ou fechado
+NEW movimento de contas a pagar/receber separado
+BUG contas a pagar/receber - botao alterar nao modifica o saldo
+NEW controle de multiplos caixas 
+BUG so uma janela e exibida no "taskbar" 
+NEW cadastro de multiplos caixas
+NEW reorganizacao dos menus principais
+NEW novos campos geral: nome pai, mae, conjuge, respectivas datas de nasc. Nºs de benefico do INSS
+NEW migracao para PHP-GTK2 e PHP 5.1.2
+	0.4.1cvsA
+NEW novo layout para recibo vendas
+NEW interno - versoes em desenvolvimento terao nome cvs seguido de uma letra.. versoes finais terao so numeros
+0.4.2cvsA
+NEW funcao inversa de calc. lucro (calc. lucro de acordo com p.venda)
+NEW permitir desconto maior que o max cadastro em mercadorias (permissoes)
+SQL insert into ctree values ('030114','Desconto unitario maior que o maximo permitido');
+NEW order by nos buscatab
+BUG virgula no desconto no finaliza vendas
+BUG digitar codigo que nao existe e incluir na venda, aceita
+BUG excluir item de venda substrai errado do total de vendas
+0.4.2cvs
+BUG clarear rebibo vendas (mais visibilidade aos valores)
+SQL formapgto->descricao de 30 para 50
+BUG codigo com letras dando erros em vendas
+BUG orcamento com codorca->hide nao funciona
+NEW busca codmerc sem dar tab
+NEW busca endereco autom. depois do cliente.
+NEW codigo de forma de pgto inserir sem F5
+BUG recibo orcamento errado
+NEW quantidade nao obrigar 3 casas decimais
+SQL entsai->quantidade de varchar(10) para numeric(12,3)
+NEW comando de comprimido na impressora lx-300
+0.4.1a
+NEW numero de vias do recibo em config.
+BUG ordem de data os pgtos no recibo
+0.4.1
+BUG relatorio vendas/meio pgto
+BUG entry enter codmerc aceitar apenas numeros no PDV
+BUG importa ap2005 unidade tem 3 digitios
+NEW campo ultima altera�o mercadorias
+NEW fim e inicio do preco promocional - integrar ao pdv
+BUG romaneio obrigatorio
+NEW 17 - Falta op�o de pre� promocional Isso e importante, sempre fazemos promocoes de produtos, elas tem um per�do de validade, o que fazemos e uma remarcacao. Ela pode ser definitiva ou tempor�ia. Um produto cadastrado pode mudar de valor ( subir ) ou podemos fazer uma promocao durante 30 dias de todos os livros de determinada editora com X% de desconto ! Passado o periodo, o sistema verifica remarcacoes a revogar e faz a atualizacao. A remarcacao e feita na central e pode-se definir que lojas e redes terao o produto remarcado !
+NEW 18 - Precisa de descri�o resumida do �em para cupom fiscal ? O Cupom fiscal nao tem espaco para textos longos, o sistema trunca o nome do produto ? As vezes fica ilegivel e de dificil identificacao ...
+BUG calculo lucro
+BUG codigo nome banco deve ser so numeros
+BUG tirar codpempregador dos cadastros
+BUG mudar os boolean para 0 ou 1
+BUG placon sempre em primeiro padrao sql a importar
+BUG bar no funcoes visual
+NEW modelo recibo vendas (compactar e botar mais uma assinatura)
+BUG divisao errada nos totais de desconto e formas de pgto (mostrar desconto da variacao) (desconto negativo ou posivito detectar) resolvido.. mas testar mais um pouco (win)
+BUG compras no windows nao aceita centavos
+BUG numero da versao na janela
+BUG eliminei msg warning ao entrar nos cadastros com foto
+BUG importa�o AP2005 - nome dos arquivos dbf em maiusculo
+BUG quando fui fazer a compra o campo plano de compras padr� n� aceita valor nenhum rsilvino@terra.com.br
+BUG echo sql em compras
+BUG contas a pagar/receber lan� no caixa ainda n� aberto
+NEW suporte a PostgreSQL
+0.4-preview
+relatorio de compras com fornecedores e preco das mercadorias (respeitar periodo)
+altera fornecedor ao comprar
+permissao obrigatorio romaneio e tabela de romaneio
+area de romaneio nos enderecos
+erro no rel. cobran�
+msg confirma deve sempre aparecer no topo
+colocar numero da versao no .config.db
+foto dos veiculos ao alterar n� permanece
+foto dos clientes ao alterar n� permanece
+desconto final invertido
+duplicidade de enderecos ao importar ap2005, debito maximo padrao
+msg debito maximo ao finarlizar venda
+carrega orcamento e nao libera botao de venda
+carrega orcamento e nao carrega endereco
+endereco no rebido orcamento nao ta certo
+bloqueando vendas .. calcula deb maximo errado
+testar cidades sem dados extras
+vendas a prazo n� libera botao vender
+19 - Cadastrando um segundo produto, na mascara n� aparece aqueles "Enter para ver a rela�o de ..."
+cadastro de cidades em sql
+importadbf trava no windows
+msg e confirma tem que usar o carregaglade
+cep (arrumar codigo do cep_bai no cep)
+3 - Vale a pena tentar pegar dados na lista do Correio ? Usamos no site uma base ( bem grande ) dos Correios que pega dados baseado no CEP ... FEITO
+27 - Hist�ico do cliente esta matando o programa. OK
+26 - Voltei a tela de pedidos e verifiquei o hist�ico de compras de um fornecedor que acabei de comprar e ele matou o programa OK
+1 - Espa� para e-mail pequeno no cadastro do cliente/funcionario; OK 100 d�itos
+2 - Digita�o da inicial das op�es no pull down n� navega nas op�es ( estado e cidades ); OK
+4 - As configura�es locais do sistema nao estao funcionando muito bem ... se se altera o estado ou cidade ele mata o programa OK
+6 - Nao aceitou a digitacao do CEP 01229-010 como endereco do funcionario (ceps de Sao Paulo comecam com 0 ) ! OK
+21 - Mensagem de erro de produto ja cadastrado nao cabe dentro da janela ! Entre Outras ! Nao sei se e uma limitacao do GTK, mas as caixas nao se adaptam aos textos ... OK
+23 - Nome da janela de conclus� e "Finaliza Vendas" OK
+importa�o dos Aplicativos Comerciais 2005
+data e "hora" da venda
+relatorio de vendas por periodo total por formas de pagamento
+pegar data no controle caixa
+relatorio de caixa por tipo de recebimento/placon
+permissoes do caixa
+fechamento do caixa
+abertura do caixa (data, true)
+veiculos: kilometragem, preco,
+cadastro de referencias do cliente
+alterar botao de vendedor nas vendas para troca usuario
+alterar endereco sem mudar o codendereco (codigo=descricao, nao gravar duas descricoes iguais)
+duplo clique nao funfa
+cadastro de rendas = nome, valor, endereco
+contas de banco: cliente desde, valor cheque especial,
+menu troca de usuario -> nao bloquear nunca no permissoes
+**mudar de set_focus para grab_focus();
+verificar se a venda respeita o arrendonda desligado do forma de pgto
+compras-> plano de contas de acordo com o meio de pagamento
+entrada de cheque no receber entre no controle de cheques
+nome do banco em mov. banc e conta a receber (acho) nao aparece bunitin.. usar informaNomeContas
+placon automatico no vendas de acordo com a parcela
+bancos -> nomes de bancos
+tabela nomes dos bancos
+meio de pagamento -> opcao de placon para entrar no caixa
+verificar recibo do compras
+(pagar receber) F8 no entry valor muda 50,00 para 500,0
+formas de pagamento no compras ?
+focos dos cadastros http://marc.theaimsgroup.com/?l=php-gtk-general&m=108998748010451&w=2
+* config. do placon para vendas *
+* config. do placon para compras *
+* config. do placon para cobranca *
+PLACON NO VENDAS E RECEBER
+config. bloquear cliente com debito op�o
+msg de venda acima de debito maximo (venda + debito anteriores) so data de pgto > que data de hoje.
+usuarios: pemissoes dos niveis de acesso
+campos obrigatorios no cadastro do cliente fisica: CPF, 2 enderecos, nascimento, telefone;
+campos obrigatorios no cadastro do cliente juridica: CPF, IE, 2 enderecos, nascimento, telefone;
+config. liga/desliga desconto unitario/total
+trocar no cobranca de tipos de divida para meios de pagamento
+usuarios: cadastros de nivel de acesso
+formas de pagamento no vendas (desconto)
+cadastro de parcelas de pagamento
+alteracao nas formas de pagamento
+cadastro de formas de pagamento
+tabela de meios de pagamento
+modulo configuracoes no menu
+setas do clist cadastro nao funcionam
+vendas = verifica o se cliente tem contas no "receber" em atraso.
+clist de vendas-> novos produtos somem quanto ela fica alem da tela
+double click no clist dos cadastros
+compras
+relatorio de orcamento nao concretizados
+relatorio de mercadoria estoque menor que estoque minimo (nome, preco custo, estoque atual, fornecedor)
+funcao que gera relatorio html (com array da tabela, array de titulo e array de rodape)
+cadastro de mercadorias com defeito
+verifica saldo da parcela no pgtos da venda
+lancar parcelas no contas a receber
+mostra preco sem desconto e o desconto
+mostrar na nota todos os telefones do cliente
+data de hoje no dia do vencimento se for em dinheiro mas F5 para incluir parcela no entry do valor muda 10,00 para 100,0
+limpar codigo de endereco ao mudar cliente
+bloquear desconto maior que desconto maximo de mercadoria
+(pagar receber) atualizar saldo no key-release-event
+(pagar receber) usar mais o teclado
+bloquear cliente pelo limite de compra (verificar debitos no contas receber) codorigem=cod do cliente
+bloquear cliente pelo debito maximo ao finalizar venda (somar saldo no receber + nova compra) liberar o acima se for a dinheiro
+depois de finalizar venda msg de debito aparecem
+(vendas) tecla que mostra todas mercadorias vendidas para o clientes
+aumentar o tamanho do buscatab
+gravar orcamento
+recibo saindo sem as formas de pagamento (gravar numa tabela saidas/orca-pagamentos) fazer um entsai com entras/saidas/orcamento ESO e a tabela de pagamentos tambem nesse esquema
+gravar em saidas o preco unit com desconto
+buscar orcamento para transformar em venda (incluindo os pagamentos)
+desconto total na tela de pagamentos
+verificar gravacao de comissao
+relatorio de comissao por periodo
+
+
+OBSERVA�ES TEMPO REAL
+
+Cadastro de Produtos
+
+Algumas adequa�es para trabalhar com livros ...
+7 - Falta campo para numero de p�inas
+8 - Falta campo para Autor, Idioma ( opcoes de uma tabela ), Tamanho, cor, genero para roupas.
+9 - Falta campo para Categoria ( Java, PHP, Redes, etc ... ), status ( dispon�el, esgotado, ainda nao lan�do, etc ... ), S�ie ( tabela a parte para vincular produtos como temos no site ).
+10 - Falta campo para origem ( nacional, Importado, Importado comprado mercado nacional ) Acho que poderia haver uma maneira de se ter dados basicos dos produtos e dados espec�icos para cada "customiza�o".

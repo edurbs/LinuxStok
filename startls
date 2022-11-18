@@ -1,0 +1,2 @@
+cd /usr/local/linuxstok
+/usr/bin/php-gtk2 LinuxStok.php
