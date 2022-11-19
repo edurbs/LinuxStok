@@ -1,0 +1,1828 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+
+<widget class="GtkWindow" id="window1">
+  <property name="border_width">5</property>
+  <property name="visible">True</property>
+  <property name="can_default">True</property>
+  <property name="has_default">True</property>
+  <property name="can_focus">True</property>
+  <property name="has_focus">True</property>
+  <property name="title" translatable="yes">LinuxStok - Menu Principal</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
+
+  <child>
+    <widget class="GtkVBox" id="vbox1">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child>
+	<widget class="GtkMenuBar" id="menubar1">
+	  <property name="visible">True</property>
+	  <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
+	  <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="sistema1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Sistema</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="sistema1_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_fechar_aba_notebook">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Fechar Aba</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_fechar_aba_notebook_activate" last_modification_time="Thu, 18 Jan 2007 17:49:15 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1363">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-cancel</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="item1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Configuracoes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_configuracoes_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1364">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-preferences</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenu" id="item1_menu">
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_configuracoes_locais">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Locais  </property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_configuracoes_locais_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1365">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-network</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_configuracoes_gerais">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Gerais  </property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_configuracoes_gerais_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1366">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-properties</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="seguranc">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Se_guranca</property>
+		      <property name="use_underline">True</property>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1367">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-dialog-authentication</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenu" id="seguranc_menu">
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_cadastro_nivelacesso">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Niveis de Acesso</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_cadastro_nivelacesso_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1368">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-edit</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_permissoes">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Permissoes</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_permissoes_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1369">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-dialog-question</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_senhas">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Senhas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_senhas_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1370">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-bold</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="backup1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Bac_kup</property>
+		      <property name="use_underline">True</property>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1371">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-harddisk</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenu" id="backup1_menu">
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_sistema_backup_gravar">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Gravar</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_sistema_backup_gravar_activate" last_modification_time="Fri, 26 Jan 2007 10:33:10 GMT"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1372">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-floppy</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_sistema_backup_restaurar">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Restaurar</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_sistema_backup_restaurar_activate" last_modification_time="Fri, 26 Jan 2007 10:33:10 GMT"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1373">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-dialog-warning</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="importacao1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Importacao</property>
+		      <property name="use_underline">True</property>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1374">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-cdrom</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+
+		      <child>
+			<widget class="GtkMenu" id="importacao1_menu">
+
+			  <child>
+			    <widget class="GtkImageMenuItem" id="menu_importa_ap2005">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Aplicativos Comerciais 2005</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_importa_ap2005_activate"/>
+
+			      <child internal-child="image">
+				<widget class="GtkImage" id="image1375">
+				  <property name="visible">True</property>
+				  <property name="stock">gtk-convert</property>
+				  <property name="icon_size">1</property>
+				  <property name="xalign">0.5</property>
+				  <property name="yalign">0.5</property>
+				  <property name="xpad">0</property>
+				  <property name="ypad">0</property>
+				</widget>
+			      </child>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_sistema_calculadora">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Calculadora</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_sistema_calculadora_activate" last_modification_time="Fri, 29 Sep 2006 13:39:48 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1376">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-index</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_sistema_logoff">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Logoff</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_logoff1_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1377">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-stop</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_sistema_sobre">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">So_bre</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_sistema_sobre_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1378">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-about</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_sistema_sair">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Sair</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_sair1_activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1379">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-quit</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="cadastros1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Cadastros</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="cadastros1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_clientes">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Clientes</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_fornecedores">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Fornecedores</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_fornecedores_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_fabricantes">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">F_abricantes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_fabricantes_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_empregador">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Empre_gadores</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_funcionarios">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">F_uncionarios/Vendedores</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_funcionarios_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_veiculos">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Veiculos</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_veiculos_activate" last_modification_time="Tue, 16 May 2006 13:41:13 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador5">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_profissao">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Profissoes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_profissao_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_tabelas_romaneio">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Areas de _Romaneio</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_tabelas_romaneio_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_tabelas_parentesco">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">P_arentesco</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_tabelas_parentesco_activate" last_modification_time="Fri, 17 Feb 2006 11:28:31 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="midias_de_propaganda">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Cadastra das formas que o cliente entrou em contato com a empresa</property>
+		      <property name="label" translatable="yes">Midias de Propaganda</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_midias_de_propaganda_activate" last_modification_time="Mon, 27 Mar 2006 18:57:13 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador6">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="cep1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">C_EP</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="cep1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_cep_estados">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Estados</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_cep_estados_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_cep_bairros">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Bairros</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_cep_bairros_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_cep_localidades">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Cidades (localidades)</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_cep_localidades_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_cep_enderecos">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">En_derecos</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_cep_enderecos_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador10">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="ocorrencias1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Ocorrencias</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_ocorrencias1_activate" last_modification_time="Mon, 06 Nov 2006 12:32:33 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="ocorrencias1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_ocorrencias_cadastro">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Cadastro</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_ocorrencias_cadastro_activate" last_modification_time="Mon, 06 Nov 2006 12:32:33 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="cadastro_ocorrencias_tipos">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Tipos</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_ocorrencias_tipos_activate" last_modification_time="Mon, 06 Nov 2006 12:32:33 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="contas1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Estoque</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="contas1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_movimentacoes_venda">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Vendas (Saidas)</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_movimentacoes_venda_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_movimentacoes_compras">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Compr_as (Entradas)</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_movimentacoes_compras_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_devolucao">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Devolucoes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_devolucoes1_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador2">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_mercadorias">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Cadastro de _Mercadorias</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_mercadorias_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_grpmerc">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Grupos de Mercadoria</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_grpmerc_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_localarma">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Locais de Armazenamento</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_localarma_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador9">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="trocaprecomerc">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Alteracao de Precos</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_trocaprecomerc_activate" last_modification_time="Fri, 17 Mar 2006 12:38:06 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="estoque_controleentregas">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Controle de Entregas</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_estoque_controleentrega_activate" last_modification_time="Thu, 05 Oct 2006 14:12:04 GMT"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="financeiro1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Financeiro</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="financeiro1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="item2">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">C_aixa</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_contas_caixa_activate"/>
+
+		      <child>
+			<widget class="GtkMenu" id="item2_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_caixa_abrir">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Abrir</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_caixa_abrir_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_caixa_fechar">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Fechar</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_fechar1_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_caixa_sangria">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">San_gria</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_caixa_sangria_activate" last_modification_time="Fri, 12 May 2006 18:19:37 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_caixa_suprimento">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Suprimento</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_caixa_suprimento_activate" last_modification_time="Fri, 12 May 2006 18:19:37 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_cadastro_caixas">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Cadastro de caixas</property>
+			      <property name="label" translatable="yes">_Cadastro</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_cadastro_caixas_activate" last_modification_time="Tue, 07 Mar 2006 18:34:05 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_bancos">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Con_tas de Banco</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_cadastro_bancos_activate" last_modification_time="Tue, 07 Mar 2006 17:32:01 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador1">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_tabelas_nomebanco">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Instituicoes Bancarias</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_menu_tabelas_nomebanco_activate"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_contas_cheques">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Cheques</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador4">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_contas_receber">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Contas a _Receber</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_contas_pagar">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Contas a _Pagar</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menu_movcontas">
+		      <property name="visible">True</property>
+		      <property name="tooltip" translatable="yes">Movimento de Contas a Pagar e a Receber</property>
+		      <property name="label" translatable="yes">M_ovimento Financeiro</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_mov_contas1_activate" last_modification_time="Mon, 06 Mar 2006 16:52:21 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1380">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-edit</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="menu_cadastro_placon">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">P_lanos de Contas</property>
+		      <property name="use_underline">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador3">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="pagamentos2">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Pa_gamentos</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="pagamentos2_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_cadastro_formapgto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Formas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_cadastro_formapgto_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_tabela_meiopgto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Meios</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_tabela_meiopgto_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_cadastro_parcelapgto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Parcelas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_parcelas1_activate"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="relatorios1">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Relatorios</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="relatorios1_menu">
+
+		  <child>
+		    <widget class="GtkMenuItem" id="vendas1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Vendas</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="vendas1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_periodo">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Por periodo</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_vendas_periodo_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_periodomeiopgto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Totais Meios de pgto</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_vendas_periodomeiopgto_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_vendas_totaisformasdepgto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Totais Formas de pgto.</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_vendas_totaisformasdepgto_activate" last_modification_time="Thu, 06 Jul 2006 19:06:54 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_vendedor">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Por periodo/Vendedor</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_por_periodo/vendedor1_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_vendedor_cliente">
+			      <property name="visible">True</property>
+			      <property name="tooltip" translatable="yes">Relatorio de vendas de um vendedor (funcionario) que esta cadastrado na aba &quot;financeiro&quot; do cliente. Funciona para vendedores externos que recebem comissao por vendas feitas por outros vendedores.</property>
+			      <property name="label" translatable="yes">Por periodo/Vendedor do Cliente</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_por_periodo_vendedor_do_cliente_activate" last_modification_time="Fri, 26 May 2006 12:23:21 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_vendas_detalhadaporitem">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Detalhada por item</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_vendas_detalhadaporitem_activate" last_modification_time="Mon, 03 Jul 2006 23:16:45 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_contasgeradas">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Contas geradas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorios_vendas_contasgeradas_activate" last_modification_time="Wed, 27 Sep 2006 13:22:08 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_lucro_bruto">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Lucro Bruto</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_vendas_lucro_activate" last_modification_time="Wed, 27 Sep 2006 19:15:29 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_vendas_canceladas">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Canceladas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_vendas_canceladas_activate" last_modification_time="Thu, 05 Oct 2006 11:56:01 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="entregas1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Entregas</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_entregas1_activate" last_modification_time="Fri, 06 Oct 2006 13:58:17 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="entregas1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_entregas_pendentes">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Pendentes</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_entregas_pendentes_activate" last_modification_time="Fri, 06 Oct 2006 13:58:17 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_entregas_efetuadas">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Efetuadas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_entregas_efetuadas_activate" last_modification_time="Fri, 06 Oct 2006 16:03:30 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="compras1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Co_mpras</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="compras1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_compras_produtosfornecedores">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Produtos e Fornecedores</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_compras_produtosfornecedores_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_compras_totais">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Totais</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_compras_totais_activate" last_modification_time="Fri, 07 Jul 2006 00:09:32 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_compras_detalhadaporitem">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Detalhadas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_compras_detalhadaporitem_activate" last_modification_time="Thu, 06 Jul 2006 23:51:21 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="orcamentos1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Orcamentos</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_orcamentos1_activate" last_modification_time="Thu, 25 May 2006 19:15:07 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="orcamentos1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_orcamento_abertos">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Abertos</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_orcamento_abertos_activate" last_modification_time="Thu, 25 May 2006 19:15:07 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_orcamento_fechados">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Fechados</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_orcamento_fechados_activate" last_modification_time="Thu, 25 May 2006 19:15:07 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_orcamento_todos">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Todos</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_orcamento_todos_activate" last_modification_time="Thu, 25 May 2006 19:15:07 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="devolucoes1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Devolucoes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_devolucoes1_activate" last_modification_time="Thu, 06 Jul 2006 22:49:52 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="devolucoes1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_devolucoes_totaisdocliente">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Totais</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_devolucoes_cliente_activate" last_modification_time="Thu, 06 Jul 2006 22:49:52 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_devolucoes_detalhadasdocliente">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Detalhadas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_devolucoes_detalhadadocliente_activate" last_modification_time="Thu, 06 Jul 2006 22:55:28 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="caixa1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Cai_xas</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="caixa1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_caixa">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Periodo</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_caixa_activate"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_caixa_recebimento_vendas">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Recebimento de Vendas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_caixa_recebimento_vendas_activate" last_modification_time="Wed, 27 Sep 2006 17:40:57 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="contas_de_banco1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Contas de Banco</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="contas_de_banco1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_contasdebanco_periodo">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Periodo</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_contasdebanco_periodo_activate" last_modification_time="Mon, 06 Nov 2006 17:56:28 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="mercadorias1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Mercadorias</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_mercadorias1_activate" last_modification_time="Mon, 20 Mar 2006 12:34:00 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="mercadorias1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_lista_de_preco_simples">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Lista de preco simples</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_lista_de_preco_simples_activate" last_modification_time="Mon, 20 Mar 2006 12:34:00 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_abaixo_do_estoque_minimo1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Abaixo do estoque minimo</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_abaixo_do_estoque_minimo1_activate" last_modification_time="Mon, 20 Mar 2006 12:34:00 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_com_preco_promocional1">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Com preco promocional</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_com_preco_promocional1_activate" last_modification_time="Mon, 20 Mar 2006 12:34:00 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_mercadorias_ultimaalteracao">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Mercadorias Alteradas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_mercadorias_ultimaalteracao_activate" last_modification_time="Thu, 28 Sep 2006 13:10:35 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="contas2">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Con_tas</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="contas2_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_contasapagar">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">A _Pagar</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="rel_contasapagar" last_modification_time="Wed, 12 Apr 2006 17:07:30 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_contasareceber">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">A _Receber</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_contasareceber_activate" last_modification_time="Wed, 12 Apr 2006 17:07:30 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_movimentocontasapagar">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Movimento a Pagar</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_contasmovimento_activate" last_modification_time="Wed, 12 Apr 2006 17:07:30 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_movimentocontasareceber">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Mo_vimento a Receber</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_movimentocontasareceber_activate" last_modification_time="Tue, 30 May 2006 11:57:31 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="menu_relatorios_contas_totalizador">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Totalizador</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_menu_relatorios_contas_totalizador_activate" last_modification_time="Fri, 07 Jul 2006 17:30:02 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_contas_recebimento_media">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Media de Recebimento</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_contas_recebimento_media_activate" last_modification_time="Wed, 27 Sep 2006 18:53:04 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_contas_mov_agrupado_placon">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Movimento por Plano de Contas</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_contas_mov_agrupado_placon_activate" last_modification_time="Thu, 28 Sep 2006 11:56:59 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador7">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="clientes1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Clien_tes</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_clientes1_activate" last_modification_time="Mon, 08 May 2006 17:51:49 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="clientes1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_clientes_simples_com_endereco">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Simples com endereco</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_cliente_simples_com_endereco_activate" last_modification_time="Mon, 08 May 2006 17:51:49 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_clientes_inativos">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">_Inativos</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_relatorio_clientes_inativos_activate" last_modification_time="Fri, 27 Oct 2006 12:00:25 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkMenuItem" id="relatorio_clientes_ocorrencias">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Ocorrencias</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_clientes_ocorrencias_activate" last_modification_time="Mon, 06 Nov 2006 17:38:03 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="fornecedores1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Fornecedores</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="fornecedores1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_fornecedores_simples_com_endereco">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Simples com endereco</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_fornecedores_simples_com_endereco_activate" last_modification_time="Mon, 15 May 2006 19:53:08 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="fabricantes1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Fabricantes</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="fabricantes1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_fabricantes_simples_com_endereco">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Simples com endereco</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_fabricantes_simples_com_endereco_activate" last_modification_time="Mon, 15 May 2006 19:53:08 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="empregadores1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Empregadores</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="empregadores1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_empregadores_simples_com_endereco">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Simples com endereco</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_empregadores_simples_com_endereco_activate" last_modification_time="Mon, 15 May 2006 19:53:08 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="funcionarios1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Funcionarios</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_funcionarios1_activate" last_modification_time="Mon, 15 May 2006 19:53:08 GMT"/>
+
+		      <child>
+			<widget class="GtkMenu" id="funcionarios1_menu">
+
+			  <child>
+			    <widget class="GtkMenuItem" id="rel_funcionarios_simples_com_endereco">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Simples com endereco</property>
+			      <property name="use_underline">True</property>
+			      <signal name="activate" handler="on_rel_funcionarios_simples_com_endereco_activate" last_modification_time="Mon, 15 May 2006 19:53:08 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separador8">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="rel_sql_personalizado">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">S_QL Personalizado</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_rel_sql_personalizado_activate" last_modification_time="Mon, 29 May 2006 11:40:36 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1381">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-execute</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkToolbar" id="toolbar1">
+	  <property name="visible">True</property>
+	  <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
+	  <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
+	  <property name="tooltips">True</property>
+	  <property name="show_arrow">True</property>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_movimentacoes_venda">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Vendas</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">vendas.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_movimentacoes_compras">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Compras</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">compras.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_devolucao">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Devolucao</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">orcamento.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_cadastro_mercadorias">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Mercadorias</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">mercadorias.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolItem" id="toolitem1">
+	      <property name="visible">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+
+	      <child>
+		<widget class="GtkHSeparator" id="hseparator2">
+		  <property name="width_request">10</property>
+		  <property name="visible">True</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_cadastro_clientes">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Clientes</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">people.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_cadastro_funcionarios">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Funcionarios</property>
+	      <property name="label" translatable="yes">button5</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">funcionarios.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_cadastro_fornecedores">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Fornecedores</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">fornecedores.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_cadastro_fabricantes">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Fabricantes</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">fabricantes.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolItem" id="toolitem2">
+	      <property name="visible">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+
+	      <child>
+		<widget class="GtkHSeparator" id="hseparator3">
+		  <property name="width_request">10</property>
+		  <property name="visible">True</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_contas_cheques">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Cheques</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">cheque.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_contas_pagar">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Contas a Pagar</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">pagar.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_contas_receber">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Contas a Receber</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">ctreceber.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_movcontas">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Movimento Financeiro (Contas a Pagar e Receber)</property>
+	      <property name="label" translatable="yes">button6</property>
+	      <property name="use_underline">True</property>
+	      <property name="icon">movcontas.xpm</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolItem" id="toolitem3">
+	      <property name="visible">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+
+	      <child>
+		<widget class="GtkHSeparator" id="hseparator4">
+		  <property name="width_request">10</property>
+		  <property name="visible">True</property>
+		</widget>
+	      </child>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="button_fechar_aba_notebook">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Fechar aba atual</property>
+	      <property name="label" translatable="yes">Fechar Aba</property>
+	      <property name="use_underline">True</property>
+	      <property name="stock_id">gtk-cancel</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>
